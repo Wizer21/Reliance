@@ -1,20 +1,20 @@
 <template>
     <div id="main">
-        <video id="video_container">
+        <video autoplay id="video_container">
             <source src="../assets/video/lucid.webm" type="video/webm">
         </video>
         <div id="screen_filter">
         </div>      
-        <div id="controler">
-            <p id="panel_icon">
+        <div id="controller">
+            <p id="state1">
                 P
             </p>
-            <div id="panel_controler">        
-                <button>
+            <div id="state2">
+                <button @click="togglePause" id="pause_button">
                     ||
                 </button>        
-                <input type="range" min="1" max="100" value="10" class="slider" id="volume_slider"> 
-            </div>
+                <input type="range" min="1" max="100" value="10" id="volume_slider" @change="sliderUpdate()" @input="sliderUpdate()"> 
+            </div>   
         </div>  
         <h1 class="glitch" data-text="Reliance">
                 Reliance
@@ -26,17 +26,41 @@
 <script>
 export default {
         name: 'Hero',
+        data() {
+            return {
+                videoRunning: true
+            }
+        },
         mounted() {
             let vid = document.getElementById("video_container")
             vid.volume = 0.1
-
 
             // Bind animaitions
             let glitch = document.getElementsByClassName('glitch')[0]
             glitch.style.setProperty('--glitch-skew', this.$style["glitch-skew"])
             glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
             glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
-        }
+        },
+        methods: {
+            sliderUpdate() {
+                document.getElementById("video_container").volume = document.getElementById('volume_slider').value / 100
+            },
+            togglePause() {
+                if (this.videoRunning){
+                    this.videoRunning = false
+                    document.getElementById("video_container").pause()
+                    document.getElementById('pause_button').textContent  = ">"
+                }
+                else{
+                    this.videoRunning = true
+                    document.getElementById("video_container").play()
+                    document.getElementById('pause_button').textContent  = "||"
+                }
+                console.log('coucou')
+
+            }
+
+        },
     }
 </script>
 
@@ -60,7 +84,7 @@ export default {
 
     object-fit: cover;
 }
-#controler
+#controller
 {	
     position: relative;
     display: flex;
@@ -71,33 +95,38 @@ export default {
 
     z-index: 3;
     height: 40px;
-    width: auto;
-    border: 0px solid transparent;
-    border-left: 1px solid white;
+    width: 200px;
+
+    overflow: hidden;
 }
-#panel_icon
+#state1
 {    
     position: relative;
 	color: white;
 	font-size: 2em;
     text-align: center;
-    width: 100%;
-    margin: 10px;
 
-    transition-duration: 400ms;
+    padding-left: 10px;
+    margin: 0px;
+
+    transition-duration: 300ms;
+    border: 0px solid transparent;
+    border-left: 1px solid white;
 }
-#panel_controler
-{    
-    position: relative;
-    transition-duration: 400ms;
-    opacity: 0;
-    width: 0px;
-    
+#state2
+{
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    
+    left: -180px;
+    width: 180px;
+
+    border-bottom: 1px solid white;
+    transition-duration: 300ms;
 }
-#panel_controler button
+#state2 button
 {    
     position: relative;
     font-size: 1.7em;
@@ -106,41 +135,29 @@ export default {
     background-color: transparent;
     outline: none;
     text-align: center;
-    transition-duration: 200ms;
+    transition-duration: 300ms;
     margin-bottom: 4px;
 }
-#panel_controler button:hover
+#controller:hover #state1
+{
+    transform: translate(0px, 40px);
+}
+#controller:hover #state2
+{
+    transition-delay: 300ms;
+    transition-duration: 300ms;
+    transform: translate(180px, 0px);
+}
+#state2 button:hover
 {
     transition-duration: 200ms;
-    transform: scale(1.2);
-}
-#controler:hover
-{
-    border: 0px solid transparent;
-    border-bottom: 1px solid white;
-}
-#controler:hover #panel_icon
-{
-    margin: 0px;
-    font-size: 0em;
-}
-#controler:hover #panel_controler
-{
-    transition-duration: 400ms;
-    width: 100%;
-    opacity: 1;
-    padding: 15px;
-}
-#controler:hover #volume_slider
-{
-    transition-duration: 400ms;
-    width: 150px;
+    transform: translate(-3px);
 }
 #volume_slider
 {
     transition-duration: 400ms;
     -webkit-appearance: none;
-    width: 0px;
+    width: 120px;
     
     &:focus {
         outline: none;
@@ -149,22 +166,19 @@ export default {
         width: 100%;
         height: 2px;
         cursor: pointer;
-        box-shadow: none;
         background: #ffffff;
-        border-radius: 0px;
         border: 0px solid transparent;
+        transition-duration: 200ms;
     }
     &::-moz-range-track {
         width: 100%;
         height: 2px;
         cursor: pointer;
-        box-shadow: none;
         background: #ffffff;
-        border-radius: 0px;
         border: 0px solid transparent;
+        transition-duration: 200ms;
     }
     &::-webkit-slider-thumb {
-        box-shadow: none;
         border: 0px solid transparent;
         height: 22px;
         width: 12px;
@@ -188,6 +202,18 @@ export default {
     &::-moz-focus-outer {
         border: 0;
         }
+}
+#volume_slider:hover
+{    
+    &::-webkit-slider-runnable-track {
+        height: 3px;
+        transition-duration: 200ms;
+    }
+    &::-moz-range-track {
+        height: 3px;
+        transition-duration: 200ms;
+    }
+
 }
 // Glitch Animation
 @mixin glitchCopy { 
