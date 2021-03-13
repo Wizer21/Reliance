@@ -13,7 +13,7 @@
                 <button @click="togglePause" id="pause_button">
                     ||
                 </button>        
-                <input type="range" min="1" max="100" value="10" id="volume_slider" @change="sliderUpdate()" @input="sliderUpdate()"> 
+                <input type="range" min="0" max="0.1" value="0.02" step="0.005" id="volume_slider" @change="sliderUpdate()" @input="sliderUpdate()"> 
             </div>   
         </div>  
         <h1 class="glitch" data-text="Reliance">
@@ -28,22 +28,15 @@ export default {
         name: 'Hero',
         data() {
             return {
-                videoRunning: true
+                videoRunning: true,
+                volume: 0.02,
+                mouse_in: true
             }
-        },
-        mounted() {
-            let vid = document.getElementById("video_container")
-            vid.volume = 0.1
-
-            // Bind animaitions
-            let glitch = document.getElementsByClassName('glitch')[0]
-            glitch.style.setProperty('--glitch-skew', this.$style["glitch-skew"])
-            glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
-            glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
         },
         methods: {
             sliderUpdate() {
-                document.getElementById("video_container").volume = document.getElementById('volume_slider').value / 100
+                this.volume = document.getElementById('volume_slider').value
+                document.getElementById("video_container").volume = this.volume
             },
             togglePause() {
                 if (this.videoRunning){
@@ -56,11 +49,53 @@ export default {
                     document.getElementById("video_container").play()
                     document.getElementById('pause_button').textContent  = "||"
                 }
-                console.log('coucou')
+            },
+            startAudio(){
+                setTimeout(() => {
+                    const video = document.getElementById("video_container")
+                    video.volume += 0.005
+                    
+                    if (this.volume > video.volume && this.mouse_in) {
+                        this.startAudio()
+                    }
+                }, 250)               
+            },
+            cutAudio(){
+               setTimeout(() => {
+                    const video = document.getElementById("video_container")
+                    video.volume -= 0.002
 
+                    if(video.volume < 0.002) {
+                        video.volume = 0
+                    }
+                    else if (video.volume > 0 && !this.mouse_in) {
+                        this.cutAudio()
+                    }
+                }, 100) 
             }
-
         },
+        mounted() { 
+            document.getElementById("video_container").volume = 0
+
+            // Bind animaitions
+            let glitch = document.getElementsByClassName('glitch')[0]
+            glitch.style.setProperty('--glitch-skew', this.$style["glitch-skew"])
+            glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
+            glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
+            
+            let main = document.getElementById('main')
+            main.addEventListener('mouseenter', () => {
+                this.mouse_in = true
+                this.startAudio()
+            })
+            main.addEventListener('mouseleave', () =>{
+                this.mouse_in = false
+                this.cutAudio()
+            })            
+            
+            //document.getElementById("video_container").play()
+            this.startAudio()
+        }
     }
 </script>
 

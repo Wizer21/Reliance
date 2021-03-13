@@ -11,12 +11,12 @@ import * as THREE from 'three';
 import oc from 'three-orbit-controls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 export default {
-    name: 'NextRelease',
+    name: 'Album',
     mounted() {
         const OrbitControls = oc(THREE)
         const three_scene = document.getElementById('scene_3d')
-        // let mouse = new THREE.Vector2()
-        // let raycaster = new THREE.Raycaster()
+        let mouse = new THREE.Vector2()
+        let raycaster = new THREE.Raycaster()
 
         // THREE JS 3S SCENE
         let scene = new THREE.Scene()
@@ -81,34 +81,34 @@ export default {
         }
         animate()
 
-        // Mouse Event
-        // three_scene.addEventListener("click", event=> {
-        //     event.preventDefault();
+        //Mouse Event
+        three_scene.addEventListener("click", event=> {
+            event.preventDefault();
 
-        //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        //     console.log('mouse.x', mouse.x)
-        //     console.log('mouse.y', mouse.y)
-        //     raycaster.setFromCamera(mouse, camera);
-        //     const intersects = raycaster.intersectObjects(scene.children);
-        //     console.log('intersect before', intersects)
+            console.log('mouse.x', mouse.x)
+            console.log('mouse.y', mouse.y)
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(scene.children);
+            console.log('intersect before', intersects)
 
-        //     for ( let i = 0; i < intersects.length; i ++ ) {
-        //         console.log("intersect")
-        //         intersects[ i ].object.material.color.set( Math.random() * 0xffffff )
+            for ( let i = 0; i < intersects.length; i ++ ) {
+                console.log("intersect")
+                intersects[ i ].object.material.color.set( Math.random() * 0xffffff )
 
-        //     }
+            }
 
-        //     // if (intersects.length > 0) {
+            // if (intersects.length > 0) {
                 
-        //     //         var object = intersects[0].object;
+            //         var object = intersects[0].object;
 
-        //     //     object.material.color.set( Math.random() * 0xffffff )
-        //     // }            
+            //     object.material.color.set( Math.random() * 0xffffff )
+            // }            
 
-        //     renderer.render(scene, camera)
-        // })
+            renderer.render(scene, camera)
+        })
     }
 }
 </script>

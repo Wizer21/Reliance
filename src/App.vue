@@ -1,17 +1,19 @@
 <template>
   <Hero/>
-  <NextRelease/>
+  <Release/>
+  <Album/>
   <div id="test">
   </div>
 </template>
 
 <script>
 import Hero from './components/Hero.vue'
-import NextRelease from './components/NextRelease.vue'
+import Album from './components/Album.vue'
+import Release from './components/Release.vue'
 
 export default {
   name: 'App',
-  components: { Hero, NextRelease }
+  components: { Hero, Album, Release }
 }
 </script>
 
