@@ -1,6 +1,8 @@
 <template>
   <Hero/>
   <NextRelease/>
+  <div id="test">
+  </div>
 </template>
 
 <script>
@@ -30,5 +32,15 @@ body
     position: relative;
     overflow: hidden;              
     margin: 0px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#test
+{
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
 }
 </style>

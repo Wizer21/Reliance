@@ -1,6 +1,6 @@
 <template>
     <div id="main">
-        <video autoplay id="video_container">
+        <video id="video_container">
             <source src="../assets/video/lucid.webm" type="video/webm">
         </video>
         <div id="screen_filter">
@@ -109,7 +109,7 @@ export default {
     padding-left: 10px;
     margin: 0px;
 
-    transition-duration: 300ms;
+    transition-duration: 200ms;
     border: 0px solid transparent;
     border-left: 1px solid white;
 }
@@ -124,7 +124,7 @@ export default {
     width: 180px;
 
     border-bottom: 1px solid white;
-    transition-duration: 300ms;
+    transition-duration: 200ms;
 }
 #state2 button
 {    
@@ -135,7 +135,7 @@ export default {
     background-color: transparent;
     outline: none;
     text-align: center;
-    transition-duration: 300ms;
+    transition-duration: 200ms;
     margin-bottom: 4px;
 }
 #controller:hover #state1
@@ -144,8 +144,8 @@ export default {
 }
 #controller:hover #state2
 {
-    transition-delay: 300ms;
-    transition-duration: 300ms;
+    transition-delay: 200ms;
+    transition-duration: 200ms;
     transform: translate(180px, 0px);
 }
 #state2 button:hover
