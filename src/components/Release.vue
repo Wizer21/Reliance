@@ -46,7 +46,6 @@ export default {
         let storm = document.getElementById('storm_container')
         let filter = document.getElementById('filter')
         let sub = document.getElementById('visible_sub').children[0]
-        console.log(storm)
         cover.addEventListener('mouseenter', () => {
             filter.style.opacity = 1
             storm.style.opacity = 1
@@ -60,13 +59,24 @@ export default {
         cover.addEventListener('mouseleave', () => {            
             filter.style.opacity = 0        
             storm.style.opacity = 0
-            sub.style.top = '-2em'
+            sub.style.top = '-2em' 
+            storm.style.transform = "translate(0px, 0px)"
 
             this.loop = false
 
             setTimeout(() => {
                 storm.pause()            
             }, 400)
+        })
+
+        let rect = cover.getBoundingClientRect()
+        cover.addEventListener('mousemove', event => {
+            if (this.loop){
+                let _mouseX = event.offsetX - rect.width/2;
+                let _mouseY = event.offsetY - rect.height/2;
+
+                cover.style.transform = `translate(${_mouseX / 10}px, ${_mouseY / 10}px`
+            }
         })
     }
 }
