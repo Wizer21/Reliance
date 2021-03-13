@@ -1,10 +1,21 @@
 <template>
     <div id="main">
-        <video controls id="video">
+        <video id="video_container">
             <source src="../assets/video/lucid.webm" type="video/webm">
         </video>
         <div id="screen_filter">
-        </div>        
+        </div>      
+        <div id="controler">
+            <p id="panel_icon">
+                P
+            </p>
+            <div id="panel_controler">        
+                <button>
+                    ||
+                </button>        
+                <input type="range" min="1" max="100" value="10" class="slider" id="volume_slider"> 
+            </div>
+        </div>  
         <h1 class="glitch" data-text="Reliance">
                 Reliance
         </h1>
@@ -14,16 +25,19 @@
 
 <script>
 export default {
-    name: 'Hero',
-    mounted() {
-        /* Animation provies a slight random skew. Check bottom of doc
-        for more information on how to random skew. */
-        let glitch = document.getElementsByClassName('glitch')[0]
-        glitch.style.setProperty('--glitch-skew', this.$style["glitch-skew"])
-        glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
-        glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
+        name: 'Hero',
+        mounted() {
+            let vid = document.getElementById("video_container")
+            vid.volume = 0.1
+
+
+            // Bind animaitions
+            let glitch = document.getElementsByClassName('glitch')[0]
+            glitch.style.setProperty('--glitch-skew', this.$style["glitch-skew"])
+            glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
+            glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
+        }
     }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -35,7 +49,7 @@ export default {
     display: flex;
     align-items: center;
 }
-#video
+#video_container
 {
     position: absolute;
     top: 0px;
@@ -46,11 +60,136 @@ export default {
 
     object-fit: cover;
 }
+#controler
+{	
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 2em;
+    margin-top: auto;
+    margin-right: auto;
 
-/* Our mixin positions a copy of our text
-directly on our existing text, while
-also setting content to the appropriate
-text set in the data-text attribute. */
+    z-index: 3;
+    height: 40px;
+    width: auto;
+    border: 0px solid transparent;
+    border-left: 1px solid white;
+}
+#panel_icon
+{    
+    position: relative;
+	color: white;
+	font-size: 2em;
+    text-align: center;
+    width: 100%;
+    margin: 10px;
+
+    transition-duration: 400ms;
+}
+#panel_controler
+{    
+    position: relative;
+    transition-duration: 400ms;
+    opacity: 0;
+    width: 0px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+#panel_controler button
+{    
+    position: relative;
+    font-size: 1.7em;
+    border: 0px solid transparent;
+    color: white;
+    background-color: transparent;
+    outline: none;
+    text-align: center;
+    transition-duration: 200ms;
+    margin-bottom: 4px;
+}
+#panel_controler button:hover
+{
+    transition-duration: 200ms;
+    transform: scale(1.2);
+}
+#controler:hover
+{
+    border: 0px solid transparent;
+    border-bottom: 1px solid white;
+}
+#controler:hover #panel_icon
+{
+    margin: 0px;
+    font-size: 0em;
+}
+#controler:hover #panel_controler
+{
+    transition-duration: 400ms;
+    width: 100%;
+    opacity: 1;
+    padding: 15px;
+}
+#controler:hover #volume_slider
+{
+    transition-duration: 400ms;
+    width: 150px;
+}
+#volume_slider
+{
+    transition-duration: 400ms;
+    -webkit-appearance: none;
+    width: 0px;
+    
+    &:focus {
+        outline: none;
+    }
+    &::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 2px;
+        cursor: pointer;
+        box-shadow: none;
+        background: #ffffff;
+        border-radius: 0px;
+        border: 0px solid transparent;
+    }
+    &::-moz-range-track {
+        width: 100%;
+        height: 2px;
+        cursor: pointer;
+        box-shadow: none;
+        background: #ffffff;
+        border-radius: 0px;
+        border: 0px solid transparent;
+    }
+    &::-webkit-slider-thumb {
+        box-shadow: none;
+        border: 0px solid transparent;
+        height: 22px;
+        width: 12px;
+        border-radius: 22px;
+        background: rgba(255,255,255,1);
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -10px;
+    }
+    &::-moz-range-thumb{
+        box-shadow: none;
+        border: 0px solid transparent;
+        height: 22px;
+        width: 12px;
+        border-radius: 22px;
+        background: rgba(255,255,255,1);
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -10px;
+    }
+    &::-moz-focus-outer {
+        border: 0;
+        }
+}
+// Glitch Animation
 @mixin glitchCopy { 
 		content: attr(data-text);
 		position: absolute;
@@ -58,43 +197,30 @@ text set in the data-text attribute. */
 		left: 0;
 		width: 100%;
 		height: 100%;
-}
-
+} 
 .sub {
 	color: rgb(100,220,220);
 	letter-spacing: 1em;
 }
 .glitch {  
-	position: relative;
+	position: absolute;
 	color: white;
 	font-size: 8em;
 	letter-spacing: .5em;
-  text-align: center;
-  width: 100%;
-  z-index: 2;
+    text-align: center;
+    width: 100%;
+    z-index: 2;
 
-	/* Animation provies a slight random skew. Check bottom of doc
-	for more information on how to random skew. */
 	animation: var(--glitch-skew) 1s infinite linear alternate-reverse;
 
-	// Creates a copy before our text. 
 	&::before{
-		// Duplicates our text with the mixin.
 		@include glitchCopy;
-		// Scoots text slightly to the left for the color offset.
 		left: 2px;
-		// Creates the color 'shadow' that happens on the glitch.
 		text-shadow: -2px 0 #ff00c1;
-		/* Creates an initial clip for our glitch. This works in
-		a typical top,right,bottom,left fashion and creates a mask
-		to only show a certain part of the glitch at a time. */
 		clip: rect(44px, 450px, 56px, 0);
-		/* Runs our glitch-anim defined below to run in a 5s loop, infinitely,
-		with an alternating animation to keep things fresh. */
 		animation: var(--glitch-anim) 5s infinite linear alternate-reverse;
 	}
-	
-	// Creates a copy after our text. Note comments from ::before.
+
 	&::after {
 		@include glitchCopy;
 		left: -2px;
@@ -119,10 +245,6 @@ text set in the data-text attribute. */
 </style>
 
 <style lang="scss" module>
-/* Creates an animation with 20 steaps. For each step, it calculates 
-a percentage for the specific step. It then generates a random clip
-box to be used for the random glitch effect. Also adds a very subtle
-skew to change the 'thickness' of the glitch.*/
 @keyframes glitch-anim {
   $steps: 20;
   @for $i from 0 through $steps {
@@ -133,7 +255,6 @@ skew to change the 'thickness' of the glitch.*/
   }
 }
 
-// Same deal, just duplicated for ultra randomness.
 @keyframes glitch-anim2 {
   $steps: 20;
   @for $i from 0 through $steps {
@@ -144,7 +265,6 @@ skew to change the 'thickness' of the glitch.*/
   }
 }
 
-// Does the same deal as before, but now only skews. Used for main text.
 @keyframes glitch-skew {
   $steps: 10;
   @for $i from 0 through $steps {
