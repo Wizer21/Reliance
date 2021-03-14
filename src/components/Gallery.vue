@@ -1,5 +1,5 @@
 <template>   
-    <div id="main">
+    <div id="main_gallery">
         <div id="container_gallery" >
         </div>   
     </div>  
@@ -8,39 +8,25 @@
 <script>
 export default {
     name: 'Gallery',
-    data() {
-        return {
-            galleryStack: []
-        }
-    },
     methods: {
         loadImages() {
             const file = require.context("../assets/image/gallery", true, /\.webp$/)
-            let container 
             let elem 
             
+            let gallery = document.getElementById('container_gallery')
             file.keys().forEach(function(key) {
                 elem = document.createElement("img")
                 elem.src = require(`../assets/image/gallery${key.substring(1, key.length)}`)
-                elem.className = "image_gallery"
-                elem.style.pointerEvents = "none"
+                elem.classList.add("image_gallery")
 
-                container = document.createElement("div")
-                container.className = "image_holder"
-                container.style.pointerEvents = "none"
-                container.appendChild(elem)
-
-                console.log("this", this)
-                this.galleryStack.push(container)
+                gallery.appendChild(elem)
             })
         }
     },
     mounted(){
         this.loadImages()
+
         let gallery = document.getElementById('container_gallery')
-        for (let image of this.galleryStack){
-            gallery.appendChild(image)
-        }
 
         let hold = false
         let lastChord = 0
@@ -54,7 +40,7 @@ export default {
 
         gallery.addEventListener('mousemove', event => {
             if (hold){                
-                gallery.scrollLeft += -(event.offsetX - lastChord)
+                gallery.scrollLeft += -(event.offsetX - lastChord)*2
                 lastChord = event.offsetX
             }
         })
@@ -62,8 +48,8 @@ export default {
 }
 </script>
 
-<style lang="scss"  scoped>
-#main
+<style lang="scss">
+#main_gallery
 {
     position: relative;
     width: 100vw;
@@ -74,9 +60,8 @@ export default {
     display: flex;
     flex-direction: row;
     height: 100vh; 
-    justify-content: space-between;
 
-    overflow: hidden;
+    overflow: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
 
@@ -84,20 +69,12 @@ export default {
     display: none;
     }
 }
-.image_holder
-{
-    position: relative;
-    width: 1500px;
-    height: 100vh;
-
-    display: flex;
-    align-items: center;
-}
 .image_gallery
 {       
-    position: absolute; 
-    max-width:100%;
-    max-height:100%;
-    object-fit: contain;
+    position: relative; 
+
+    width:100%;
+    height:100%;
+    pointer-events: none;
 }
 </style>

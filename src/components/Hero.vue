@@ -6,15 +6,13 @@
         <div id="screen_filter">
         </div>      
         <div id="controller">
-            <p id="state1">
-                P
-            </p>
-            <div id="state2">
-                <button @click="togglePause" id="pause_button">
-                    ||
-                </button>        
-                <input type="range" min="0" max="0.1" value="0.02" step="0.001" id="volume_slider" @change="sliderUpdate()" @input="sliderUpdate()"> 
+            <div @click="togglePause" class="control_button">
+                <img :src="pause_icon" alt="P">
             </div>   
+            <div @click="toggleMute" class="control_button">
+                <img :src="mute_icon" alt="M">
+            </div>            
+            <input type="range" min="0" max="0.1" step="0.001" id="volume_slider" @change="sliderUpdate()" @input="sliderUpdate()"> 
         </div>  
         <h1 class="glitch" data-text="Reliance">
                 Reliance
@@ -29,25 +27,40 @@ export default {
         data() {
             return {
                 videoRunning: true,
+                videoMute: false,
                 volume: 0.02,
-                mouse_in: true
+                mouse_in: true,
+                mute_icon: require('../assets/icon/volume_up-24px.svg'),
+                pause_icon: require('../assets/icon/pause-24px.svg')
             }
         },
         methods: {
             sliderUpdate() {
                 this.volume = document.getElementById('volume_slider').value
                 document.getElementById("video_container").volume = this.volume
+            },            
+            toggleMute() {
+                if (this.videoMute){
+                    this.videoMute = false
+                    document.getElementById("video_container").muted = false
+                    this.mute_icon = require('../assets/icon/volume_up-24px.svg')
+                }
+                else{
+                    this.videoMute = true
+                    document.getElementById("video_container").muted = true
+                    this.mute_icon = require('../assets/icon/volume_off-24px.svg')
+                }
             },
             togglePause() {
                 if (this.videoRunning){
                     this.videoRunning = false
                     document.getElementById("video_container").pause()
-                    document.getElementById('pause_button').textContent  = ">"
+                    this.pause_icon = require('../assets/icon/play_arrow-24px.svg')
                 }
                 else{
                     this.videoRunning = true
                     document.getElementById("video_container").play()
-                    document.getElementById('pause_button').textContent  = "||"
+                    this.pause_icon = require('../assets/icon/pause-24px.svg')
                 }
             },
             startAudio(){
@@ -93,8 +106,9 @@ export default {
                 this.cutAudio()
             })            
             
-            //document.getElementById("video_container").play()
+            document.getElementById("video_container").play()
             this.startAudio()
+            document.getElementById('volume_slider').value = this.volume
         }
     }
 </script>
@@ -124,44 +138,20 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
+
     margin: 2em;
     margin-top: auto;
     margin-right: auto;
 
     z-index: 3;
     height: 40px;
-    width: 200px;
+    width: 44px;
 
     overflow: hidden;
-}
-#state1
-{    
-    position: relative;
-	color: white;
-	font-size: 2em;
-    text-align: center;
-
-    padding-left: 10px;
-    margin: 0px;
-
-    transition-duration: 200ms;
-    border: 0px solid transparent;
-    border-left: 1px solid white;
-}
-#state2
-{
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    
-    left: -180px;
-    width: 180px;
-
+    transition-duration: 400ms;
     border-bottom: 1px solid white;
-    transition-duration: 200ms;
 }
-#state2 button
+.control_button
 {    
     position: relative;
     font-size: 1.7em;
@@ -170,20 +160,17 @@ export default {
     background-color: transparent;
     outline: none;
     text-align: center;
-    transition-duration: 200ms;
-    margin-bottom: 4px;
+    transition-duration: 400ms;
+    
+    margin: 10px;
 }
-#controller:hover #state1
+#controller:hover
 {
-    transform: translate(0px, 40px);
+    width: 300px;
+    transition-duration: 400ms;
+    border-bottom-color: transparent;
 }
-#controller:hover #state2
-{
-    transition-delay: 200ms;
-    transition-duration: 200ms;
-    transform: translate(180px, 0px);
-}
-#state2 button:hover
+.control_button:hover
 {
     transition-duration: 200ms;
     transform: translate(-3px);
@@ -193,6 +180,7 @@ export default {
     transition-duration: 400ms;
     -webkit-appearance: none;
     width: 120px;
+    margin: 10px;
     
     &:focus {
         outline: none;
