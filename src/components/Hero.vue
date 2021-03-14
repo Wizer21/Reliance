@@ -106,7 +106,7 @@ export default {
                 this.cutAudio()
             })            
             
-            document.getElementById("video_container").play()
+            //document.getElementById("video_container").play()
             this.startAudio()
             document.getElementById('volume_slider').value = this.volume
         }

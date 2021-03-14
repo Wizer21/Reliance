@@ -1,7 +1,32 @@
 <template>   
     <div id="main">
         <div id="scene_3d">
-
+        </div>
+        <div id="player">
+            <h2>
+                Reliance
+            </h2>
+            <div id="track">
+                <p v-for="obj of track" :key="obj.name" @click="newTrack(obj)">
+                    {{ obj.name }}
+                </p>
+            </div>
+            <div id="audio_player">
+                <div id="player_header">
+                    <h3>
+                        {{ audio_player_data.track }}
+                    </h3>
+                    <img :src="pause_icon" alt="pause" @click="togglePause()">
+                    <p>
+                        Mute
+                        <input type="range" id="volume_slider">    
+                    </p>
+                </div> 
+                <div id="player_body">
+                    <input type="range" id="track_slider"> 
+                    <p>3:45</p>    
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -14,17 +39,67 @@ export default {
     name: 'Album',
     data() {
         return {
-            mouse: new THREE.Vector3()
+            track: {
+                citadel: {
+                    name: "Citadel",
+                    url: 'Citadel.mp3',
+                    key: 'citadel'
+                },
+                glasscastle: {                    
+                    name: "Glass Castle",
+                    url: 'Glass Castle.mp3',
+                    key: 'glasscastle'
+                },
+                fragileskin: {                    
+                    name: "Fragile Skin",
+                    url: 'Fragile Skin.mp3',
+                    key: 'fragileskin'
+                },
+                lucid: {                    
+                    name: "Lucid",
+                    url: 'Lucid.mp3',
+                    key: 'lucid'
+                },
+                banshee: {                    
+                    name: "Banshee",
+                    url: 'Banshee.mp3',
+                    key: 'banshee'
+                },
+            },
+            audio_player_data: {
+                track: ""
+            },
+            player: new Audio(),            
+            pause_icon: require('../assets/icon/pause-24px.svg'),
+            playerPaused: false
+        }
+    },
+    methods: {
+        newTrack (track) {
+            this.audio_player_data.track = track.name
+
+            this.player.src = require(`../assets/audio/${track.url}`)
+            this.player.play()
+        },
+        togglePause() {
+            if (this.playerPaused){
+                this.playerPaused = false
+                this.pause_icon = require('../assets/icon/pause-24px.svg')
+                this.player.play()
+            }
+            else{
+                this.playerPaused = true
+                this.pause_icon = require('../assets/icon/play_arrow-24px.svg')
+                this.player.pause()
+            }
         }
     },
     mounted() {
+        // --- THREE JS 3D SCENE ---
         const OrbitControls = oc(THREE)
         const three_scene = document.getElementById('scene_3d')
-        let raycaster = new THREE.Raycaster()
-        const mouse = new THREE.Vector3();
         let objects_list = []
 
-        // THREE JS 3S SCENE
         let scene = new THREE.Scene()
 
         // Light
@@ -39,17 +114,6 @@ export default {
 
         // Load 3D elements
         const loader = new GLTFLoader() 
-        let citadel
-        loader.load("models/citadel.glb", function ( gltf ) {
-            citadel = scene.add( gltf.scene )            
-            citadel = citadel.children[citadel.children.length - 1]
-
-            citadel.rotation.y = 3.15
-            citadel.position.set(-0.05, 1.6, -0.2)
-
-            objects_list.push(citadel)
-        })   
-        
         let cd
         loader.load("models/reliance_cd3.glb", function ( gltf ) {
             cd = scene.add( gltf.scene )       
@@ -94,25 +158,7 @@ export default {
         }
         animate()
 
-        three_scene.addEventListener("click", event => {
-
-            mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-            raycaster.setFromCamera( mouse, camera );
-
-            const intersects = raycaster.intersectObjects( scene.children );
-            console.log('intersect before', intersects)
-
-            for ( let i = 0; i < intersects.length; i ++ ) {
-
-                intersects[ i ].object.material.color.set( Math.random() * 0xffffff )
-
-            }
-
-            renderer.render( scene, camera );
-
-        })
+        // --- 3D END ---
     }
 }
 </script>
@@ -128,7 +174,61 @@ export default {
 }
 #scene_3d
 {
+    position: relative;
+    left: -25vw;
     height: 100vh;
-    width: 100vw;
+    width: 50vw;
+}
+#player
+{    
+    position: relative;
+    height: 100vh;
+    width: 50vw;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#player h2
+{    
+    color: rgb(255, 255, 255);
+    font-size: 4em;
+}
+#track p
+{
+    color: rgb(255, 255, 255);
+    font-size: 2em;
+    margin: 1em;
+    transition-duration: 400ms;
+}
+#track p:hover
+{
+    transition-duration: 400ms;
+    transform: translate(40px, 0px);
+}
+#audio_player
+{
+    border: 1px solid white;
+    color: white;
+    width: 80%;
+}
+#player_header
+{
+    display: flex;
+    flex-direction: row;
+}
+#player_header h3
+{
+    flex:2;
+}
+#player_body
+{
+    display: flex;
+    flex-direction: row;
+}
+#player_body input
+{
+    width: 100%;
 }
 </style>
