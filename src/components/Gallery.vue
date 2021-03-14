@@ -1,6 +1,8 @@
 <template>   
     <div id="main_gallery">
-        <div id="container_gallery" >
+        <div id="gallery_cursor">
+        </div>
+        <div id="container_gallery">
         </div>   
     </div>  
 </template>
@@ -27,15 +29,22 @@ export default {
         this.loadImages()
 
         let gallery = document.getElementById('container_gallery')
+        let gallery_cursor = document.getElementById('gallery_cursor')
 
         let hold = false
         let lastChord = 0
         gallery.addEventListener('mousedown', event => {
             hold = true
             lastChord = event.offsetX
+
+            gallery_cursor.style.height = "0px"
+            gallery_cursor.style.width = "0px"
         })
         gallery.addEventListener('mouseup', () => {
             hold = false
+            
+            gallery_cursor.style.height = "20px"
+            gallery_cursor.style.width = "20px"
         })
 
         gallery.addEventListener('mousemove', event => {
@@ -43,7 +52,13 @@ export default {
                 gallery.scrollLeft += -(event.offsetX - lastChord)*2
                 lastChord = event.offsetX
             }
+            mousePos(event)
         })
+
+        function mousePos(event){
+            gallery_cursor.style.top = `${event.offsetY}px`
+            gallery_cursor.style.left = `${event.offsetX}px`
+        }
     }
 }
 </script>
@@ -54,6 +69,7 @@ export default {
     position: relative;
     width: 100vw;
     height: 100vh;
+    cursor: none;
 }
 #container_gallery
 {
@@ -77,4 +93,16 @@ export default {
     height:100%;
     pointer-events: none;
 }
+#gallery_cursor
+{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+
+    border: 5px solid #262626;
+    z-index: 3;
+    pointer-events: none;
+}
 </style>
+

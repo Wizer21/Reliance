@@ -1,11 +1,11 @@
 <template>
-  <div data-scroll-container class="container">        
-        <Hero data-scroll-section/>
-        <Release data-scroll-section/>
-        <Album data-scroll-section/>
-        <Gallery data-scroll-section/>
-        <div id="test" data-scroll-section>
-        </div>
+  <div data-scroll-container class="container">
+    <Hero data-scroll-section/>
+    <Release data-scroll-section/>
+    <Album data-scroll-section/>
+    <Gallery data-scroll-section/>
+    <div id="test" data-scroll-section>
+    </div>
   </div>
 </template>
 
