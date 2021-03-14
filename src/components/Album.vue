@@ -12,20 +12,27 @@
                 </p>
             </div>
             <div id="audio_player">
-                <div id="player_header">
-                    <h3>
-                        {{ audio_player_data.track }}
-                    </h3>
-                    <img :src="pause_icon" alt="pause" @click="togglePause()">
-                    <p>
-                        Mute
-                        <input type="range" id="volume_slider">    
-                    </p>
-                </div> 
-                <div id="player_body">
-                    <input type="range" id="track_slider"> 
-                    <p>3:45</p>    
+                <div id="content">
+                    <div id="player_header">
+                        <h3>
+                            {{ audio_player_data.track }}
+                        </h3>
+                        <img :src="pause_icon" alt="pause" @click="togglePause()" id="pause_button">
+                        <div id="mute_button">
+                            <img :src="mute_icon" alt="mute" @click="toggleMute()">
+                            <div id="volume_container">
+                                <input type="range" id="volume_slider" orient="vertical">
+                            </div>
+                        </div>
+                    </div> 
+                    <div id="player_body">
+                        <input type="range" id="track_slider" @change="timeSliderUpdate()" @input="timeSliderUpdate()"> 
+                        <p>
+                            {{ track_duration }}
+                        </p>    
+                    </div>
                 </div>
+               
             </div>
         </div>
     </div>
@@ -71,15 +78,30 @@ export default {
             },
             player: new Audio(),            
             pause_icon: require('../assets/icon/pause-24px.svg'),
-            playerPaused: false
+            playerPaused: false,    
+            mute_icon: require('../assets/icon/volume_up-24px.svg'),
+            playerMuted: false,
+            track_duration: 0
         }
     },
     methods: {
         newTrack (track) {
-            this.audio_player_data.track = track.name
+            document.getElementById('content').style.top = "-100px"
+            document.getElementById('content').style.opacity = "0"
+            setTimeout(() => {   
+                this.audio_player_data.track = track.name
 
-            this.player.src = require(`../assets/audio/${track.url}`)
-            this.player.play()
+                this.player.src = require(`../assets/audio/${track.url}`)
+                this.player.play()
+
+                this.pause_icon = require('../assets/icon/pause-24px.svg')
+                this.player.play()
+                this.mute_icon = require('../assets/icon/volume_up-24px.svg')
+                this.player.muted = false
+                
+                document.getElementById('content').style.top = "0px"
+                document.getElementById('content').style.opacity = "1"
+            }, 400)            
         },
         togglePause() {
             if (this.playerPaused){
@@ -92,6 +114,21 @@ export default {
                 this.pause_icon = require('../assets/icon/play_arrow-24px.svg')
                 this.player.pause()
             }
+        },
+        toggleMute() {
+            if (this.playerMuted){
+                this.playerMuted = false
+                this.mute_icon = require('../assets/icon/volume_up-24px.svg')
+                this.player.muted = false
+            }
+            else{
+                this.playerMuted = true
+                this.mute_icon = require('../assets/icon/volume_off-24px.svg')
+                this.player.muted = true
+            }
+        },
+        timeSliderUpdate() {
+            this.player.currentTime = document.getElementById('track_slider').value
         }
     },
     mounted() {
@@ -159,6 +196,27 @@ export default {
         animate()
 
         // --- 3D END ---
+        this.player.addEventListener('timeupdate', () => {
+            let timer = this.player.currentTime
+            document.getElementById('track_slider').value = timer
+
+
+            let seconds = parseInt(timer)
+            
+            let minute = 0
+            while(seconds >= 60){
+                seconds -= 60
+                minute += 1
+            }
+            if( seconds < 10){
+                seconds = '0' + seconds
+            }
+            this.track_duration = `${minute}:${seconds}`            
+        })
+        this.player.addEventListener('loadedmetadata', () => {
+            document.getElementById('track_slider').max = this.player.duration
+            console.log('max : ', this.player.duration)
+        })
     }
 }
 </script>
@@ -209,9 +267,20 @@ export default {
 }
 #audio_player
 {
-    border: 1px solid white;
     color: white;
     width: 80%;
+
+    overflow: hidden;
+}
+#content
+{
+    position: relative;
+    top: -100px;
+    width: 100%;
+    opacity: 0;
+
+    transition-duration: 400ms;
+    transition-timing-function: ease-out;
 }
 #player_header
 {
@@ -230,5 +299,74 @@ export default {
 #player_body input
 {
     width: 100%;
+}
+#mute_button
+{
+    display: flex;
+    align-items: center;
+    overflow: visible;
+}
+#mute_button img
+{
+    transition-duration: 300ms;
+}
+#mute_button:hover img
+{
+    transform: scale(1.2);
+    transition-duration: 300ms;
+}
+#volume_container
+{
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    transition-duration: 300ms;
+
+    overflow: visible;
+    z-index: 5;
+}
+#volume_container:hover
+{
+    transform: translate(0px, -110px);
+    height: 225px;
+    transition-duration: 300ms;
+}
+/* #volume_container input
+{
+    position: relative;
+    height: 0px;
+    opacity: 0;
+    transition-duration: 300ms;
+    pointer-events: none;
+
+    margin: 0px;
+    padding: 4.5px;
+
+}
+#volume_container:hover input
+{
+    height: 100px;
+    opacity: 1;
+    transition-duration: 300ms;
+    pointer-events: all;
+} */
+#pause_button
+{
+    margin-right: 10px;
+    transition-duration: 300ms;
+}
+#pause_button:hover
+{
+    transform: scale(1.2);
+    transition-duration: 300ms;
+}
+
+input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
 }
 </style>
