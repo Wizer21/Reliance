@@ -13,7 +13,7 @@
                 <button @click="togglePause" id="pause_button">
                     ||
                 </button>        
-                <input type="range" min="0" max="0.1" value="0.02" step="0.005" id="volume_slider" @change="sliderUpdate()" @input="sliderUpdate()"> 
+                <input type="range" min="0" max="0.1" value="0.02" step="0.001" id="volume_slider" @change="sliderUpdate()" @input="sliderUpdate()"> 
             </div>   
         </div>  
         <h1 class="glitch" data-text="Reliance">
@@ -66,7 +66,7 @@ export default {
                     video.volume -= 0.002
 
                     if(video.volume < 0.002) {
-                        video.volume = 0
+                        video.volume = parseInt(0)
                     }
                     else if (video.volume > 0 && !this.mouse_in) {
                         this.cutAudio()
@@ -266,7 +266,7 @@ export default {
 .glitch {  
 	position: absolute;
 	color: white;
-	font-size: 8em;
+	font-size: 8vw;
 	letter-spacing: .5em;
     text-align: center;
     width: 100%;
