@@ -8,10 +8,14 @@
 <script>
 export default {
     name: 'Gallery',
+    data() {
+        return {
+            galleryStack: []
+        }
+    },
     methods: {
         loadImages() {
             const file = require.context("../assets/image/gallery", true, /\.webp$/)
-            let gallery = document.getElementById('container_gallery')
             let container 
             let elem 
             
@@ -26,14 +30,18 @@ export default {
                 container.style.pointerEvents = "none"
                 container.appendChild(elem)
 
-                gallery.appendChild(container)
+                console.log("this", this)
+                this.galleryStack.push(container)
             })
         }
     },
     mounted(){
         this.loadImages()
-
         let gallery = document.getElementById('container_gallery')
+        for (let image of this.galleryStack){
+            gallery.appendChild(image)
+        }
+
         let hold = false
         let lastChord = 0
         gallery.addEventListener('mousedown', event => {
@@ -66,6 +74,7 @@ export default {
     display: flex;
     flex-direction: row;
     height: 100vh; 
+    justify-content: space-between;
 
     overflow: hidden;
     -ms-overflow-style: none;
@@ -78,14 +87,17 @@ export default {
 .image_holder
 {
     position: relative;
-    width: auto;
-    height: auto;
+    width: 1500px;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
 }
 .image_gallery
 {       
     position: absolute; 
     max-width:100%;
     max-height:100%;
-    object-fit: scale-down;
+    object-fit: contain;
 }
 </style>
