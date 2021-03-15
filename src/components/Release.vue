@@ -7,7 +7,7 @@
         </div>
         <div id="release_content">
             <div id="release_text">
-                <h1>
+                <h1 id="title_release">
                     OUR DISCONNECT
                 </h1>
                 <div id="visible_sub">
@@ -16,7 +16,9 @@
                     </p>
                 </div>
             </div>
-            <img src="../assets/image/disconnect.jpg" alt="image" id="cover_release">
+            <div id="image_container">
+                <img src="../assets/image/disconnect.jpg" alt="image" id="cover_release">
+            </div>
         </div>   
     </div>
 </template>
@@ -26,17 +28,7 @@ export default {
     name: 'Release',
     data() {
         return {
-            loop: true
-        }
-    },
-    methods: {
-        sillLoop(){
-            setTimeout(() => {
-                if (this.loop){
-                    document.getElementById('storm_container').currentTime = 0
-                    this.sillLoop()
-                }
-            }, 4000)
+            mouse_in: true
         }
     },
     mounted(){
@@ -46,15 +38,21 @@ export default {
         let storm = document.getElementById('storm_container')
         let filter = document.getElementById('filter')
         let sub = document.getElementById('visible_sub').children[0]
+        let title_release = document.getElementById('title_release')
+        let image_container = document.getElementById('image_container')
+
         cover.addEventListener('mouseenter', () => {
             filter.style.opacity = 1
+            sub.style.top = 0
+
             storm.style.opacity = 1
             storm.currentTime = 0
-            sub.style.top = 0
             storm.play()
 
-            this.loop = true
-            this.sillLoop()
+            cover.style.animation = `${this.$style["fluid"]} 1s infinite alternate ease-in-out`
+            title_release.style.animation = `${this.$style["fluid"]} 1s infinite alternate ease-in-out`
+
+            this.mouse_in = true
         })
         cover.addEventListener('mouseleave', () => {            
             filter.style.opacity = 0        
@@ -62,21 +60,26 @@ export default {
             sub.style.top = '-2em' 
             storm.style.transform = "translate(0px, 0px)"
 
-            this.loop = false
+            cover.style.animation = ""
+            title_release.style.animation = ""
 
-            setTimeout(() => {
-                storm.pause()            
-            }, 400)
+            this.mouse_in = false
         })
 
         let rect = cover.getBoundingClientRect()
         cover.addEventListener('mousemove', event => {
-            if (this.loop){
+            if (this.mouse_in){
                 let _mouseX = event.offsetX - rect.width/2;
                 let _mouseY = event.offsetY - rect.height/2;
 
-                cover.style.transform = `translate(${_mouseX / 10}px, ${_mouseY / 10}px`
+                image_container.style.transform = `translate(${_mouseX / 10}px, ${_mouseY / 10}px`
             }
+        })
+
+        storm.addEventListener('ended', () => {
+            console.log('end')
+            storm.currentTime = 0
+            storm.play()
         })
     }
 }
@@ -100,6 +103,7 @@ export default {
     height: 100%;
 
     z-index: 3;
+    transition-duration: 100ms;
 }
 #cover_release
 {
@@ -158,5 +162,28 @@ export default {
     margin: 0px;
     top: -2em;
     transition-duration: 800ms;
+}
+</style>
+
+<style lang="scss" module>
+@keyframes fluid {
+0%{
+    transform: skew(-(random(5)) + deg, 0deg)
+}
+20%{
+    transform: skew(-(random(5)) + deg, 0deg)
+}
+40%{
+    transform: skew(-(random(5)) + deg, 0deg)
+}
+60%{
+    transform: skew(-(random(5)) + deg, 0deg)
+}
+80%{
+    transform: skew(-(random(5)) + deg, 0deg)
+}
+100%{
+    transform: skew(-(random(5)) + deg, 0deg)
+}
 }
 </style>
