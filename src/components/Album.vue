@@ -20,7 +20,7 @@
                         <img :src="pause_icon" alt="pause" @click="togglePause()" id="pause_button">
                         <div id="mute_button">
                             <img :src="mute_icon" alt="mute" @click="toggleMute()">
-                            <input type="range" min="0" max="1" step="0.01" id="album_volume_slider" orient="vertical" @change="updateVolume()" @input="updateVolume()">
+                            <input type="range" min="0" max="1" step="0.01" id="album_volume_slider" @change="updateVolume()" @input="updateVolume()">
                         </div>
                     </div> 
                     <div id="player_body">
@@ -237,7 +237,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #main
 {
     display: flex;
@@ -280,6 +280,11 @@ export default {
 {
     transition-duration: 400ms;
     transform: translate(20px, 0px);
+}
+#track p:active
+{
+    transition-duration: 50ms;
+    transform: translate(15px, 0px);
 }
 #audio_player
 {
@@ -339,10 +344,50 @@ export default {
 #mute_button input
 {
     position: absolute;
-    height: 0px;
+    width: 10px;
+    height: 80px;
     opacity: 0;
     transition-duration: 300ms;
-    padding: 10px;
+    
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical; 
+    -webkit-appearance: none;
+    // overflow: hidden;
+    
+    &:focus {
+        outline: none;
+    }
+    &::-webkit-slider-runnable-track {
+        width: 10px;
+        height: 80px;
+        cursor: pointer;
+        background-color: #1a1a1a;
+    }
+    &::-moz-range-track {
+        width: 5px;
+        height: 80px;
+        cursor: pointer;
+        background-color: #1a1a1a;
+    }
+    &::-webkit-slider-thumb {
+        -webkit-appearance: slider-vertical; 
+        writing-mode: bt-lr;
+        height: 2px;
+        width: 5px;
+        cursor: pointer;
+        -webkit-appearance: none;
+        //box-shadow: 0px 500px 0px 500px #ffffff;
+    }
+    &::-moz-range-thumb{
+        height: 2px;
+        width: 2px;
+        cursor: pointer;
+        -webkit-appearance: none;
+        box-shadow: 0px 500px 0px 500px #ffffff;
+    }
+    &::-moz-focus-outer {
+        border: 0;
+        }
 }
 #mute_button:hover input
 {
@@ -363,12 +408,49 @@ export default {
     transition-duration: 300ms;
 }
 
-input[type=range][orient=vertical]
+input[type=range]
 {
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
-    width: 8px;
-    height: 175px;
-    padding: 0 5px;
+    transition-duration: 400ms;
+    -webkit-appearance: none;
+    width: 120px;
+    height: 5px;
+    overflow: hidden;
+    
+    &:focus {
+        outline: none;
+    }
+    &::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 5px;
+        cursor: pointer;
+        border: 10px solid transparent;
+        background-color: #1a1a1a;
+    }
+    &::-moz-range-track {
+        width: 100%;
+        height: 5px;
+        cursor: pointer;
+        border: 10px solid transparent;
+        background-color: #1a1a1a;
+    }
+    &::-webkit-slider-thumb {
+        width: 0px;
+        background: rgba(255,255,255,1);
+        cursor: pointer;
+        -webkit-appearance: none;
+        box-shadow: -500px 0 0 500px #ffffff;
+        transform: translate(-8px);
+    }
+    &::-moz-range-thumb{
+        width: 0px;
+        background: rgba(255,255,255,1);
+        cursor: pointer;
+        -webkit-appearance: none;
+        box-shadow: -500px 0 0 500px #ffffff;
+        transform: translate(-8px);
+    }
+    &::-moz-focus-outer {
+        border: 0;
+        }
 }
 </style>
