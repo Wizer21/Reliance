@@ -33,9 +33,11 @@ export default {
         gallery.addEventListener('mousedown', event => {
             hold = true
             lastChord = event.offsetX
+            gallery.style.cursor = 'grabbing'
         })
         gallery.addEventListener('mouseup', () => {
             hold = false
+            gallery.style.cursor = 'grab'
         })
 
         gallery.addEventListener('mousemove', event => {
@@ -64,6 +66,7 @@ export default {
     overflow: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    cursor: grab;
 
     &::-webkit-scrollbar {
     display: none;

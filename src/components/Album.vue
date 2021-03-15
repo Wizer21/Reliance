@@ -252,7 +252,7 @@ export default {
 {
     position: relative;
     left: -25vw;
-    height: 100vh;
+    height: 120vh;
     width: 50vw;
 }
 #player
@@ -277,6 +277,7 @@ export default {
     font-size: 2em;
     margin: 1em;
     transition-duration: 400ms;
+    cursor: pointer;
 }
 #track p:hover
 {
@@ -333,6 +334,7 @@ export default {
     align-items: center;
     padding-right: 10px;
     padding-left: 10px;
+    cursor: pointer;
 }
 #volume_container
 {    
@@ -361,8 +363,8 @@ export default {
     height: 80px;
     opacity: 0;    
     transition-duration: 300ms;
+    //overflow: hidden;
     
-    writing-mode: bt-lr;
     -webkit-appearance: slider-vertical; 
     
     &:focus {
@@ -381,20 +383,18 @@ export default {
         background-color: #1a1a1a;
     }
     &::-webkit-slider-thumb {
-        -webkit-appearance: slider-vertical; 
-        writing-mode: bt-lr;
-        width: 10px;
-        transform: translate(-5px, -1px);
+        -webkit-appearance: none;
+        height: 0px;
         cursor: pointer;
         box-shadow: 0px 500px 0px 500px #ffffff;
+        transform: translate(-10px, 0);
     }
     &::-moz-range-thumb{
-        -webkit-appearance: slider-vertical; 
-        writing-mode: bt-lr;
-        width: 10px;
-        transform: translate(-5px, -1px);
+        -webkit-appearance: none;
+        height: 0px;
         cursor: pointer;
         box-shadow: 0px 500px 0px 500px #ffffff;
+        transform: translate(-10px, 0);
     }
     &::-moz-focus-outer {
         border: 0;
@@ -415,6 +415,7 @@ export default {
     padding-right: 10px;
     padding-left: 10px;
     transition-duration: 300ms;
+    cursor: pointer;
 }
 #pause_button:hover
 {
@@ -437,14 +438,12 @@ input[type=range]
         width: 100%;
         height: 5px;
         cursor: pointer;
-        border: 10px solid transparent;
         background-color: #1a1a1a;
     }
     &::-moz-range-track {
         width: 100%;
         height: 5px;
         cursor: pointer;
-        border: 10px solid transparent;
         background-color: #1a1a1a;
     }
     &::-webkit-slider-thumb {
@@ -453,7 +452,6 @@ input[type=range]
         cursor: pointer;
         -webkit-appearance: none;
         box-shadow: -500px 0 0 500px #ffffff;
-        transform: translate(-8px);
     }
     &::-moz-range-thumb{
         width: 0px;
@@ -461,7 +459,6 @@ input[type=range]
         cursor: pointer;
         -webkit-appearance: none;
         box-shadow: -500px 0 0 500px #ffffff;
-        transform: translate(-8px);
     }
     &::-moz-focus-outer {
         border: 0;

@@ -161,6 +161,7 @@ export default {
     outline: none;
     text-align: center;
     transition-duration: 400ms;
+    cursor: pointer;
     
     margin: 10px;
 }
@@ -180,63 +181,41 @@ export default {
     transition-duration: 400ms;
     -webkit-appearance: none;
     width: 120px;
-    margin: 10px;
+    height: 5px;
+    overflow: hidden;
     
     &:focus {
         outline: none;
     }
     &::-webkit-slider-runnable-track {
         width: 100%;
-        height: 2px;
+        height: 5px;
         cursor: pointer;
-        background: #ffffff;
-        border: 0px solid transparent;
-        transition-duration: 200ms;
+        background-color: #1a1a1a;
     }
     &::-moz-range-track {
         width: 100%;
-        height: 2px;
+        height: 5px;
         cursor: pointer;
-        background: #ffffff;
-        border: 0px solid transparent;
-        transition-duration: 200ms;
+        background-color: #1a1a1a;
     }
     &::-webkit-slider-thumb {
-        border: 0px solid transparent;
-        height: 22px;
-        width: 12px;
-        border-radius: 22px;
+        width: 0px;
         background: rgba(255,255,255,1);
         cursor: pointer;
         -webkit-appearance: none;
-        margin-top: -10px;
+        box-shadow: -500px 0 0 500px #ffffff;
     }
     &::-moz-range-thumb{
-        box-shadow: none;
-        border: 0px solid transparent;
-        height: 22px;
-        width: 12px;
-        border-radius: 22px;
+        width: 0px;
         background: rgba(255,255,255,1);
         cursor: pointer;
         -webkit-appearance: none;
-        margin-top: -10px;
+        box-shadow: -500px 0 0 500px #ffffff;
     }
     &::-moz-focus-outer {
         border: 0;
         }
-}
-#volume_slider:hover
-{    
-    &::-webkit-slider-runnable-track {
-        height: 3px;
-        transition-duration: 200ms;
-    }
-    &::-moz-range-track {
-        height: 3px;
-        transition-duration: 200ms;
-    }
-
 }
 // Glitch Animation
 @mixin glitchCopy { 

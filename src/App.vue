@@ -4,6 +4,7 @@
     <Release data-scroll-section/>
     <Album data-scroll-section/>
     <Gallery data-scroll-section/>
+    <Shop data-scroll-section/>
     <div id="test" data-scroll-section>
     </div>
   </div>
@@ -16,10 +17,11 @@ import Hero from './components/Hero.vue'
 import Album from './components/Album.vue'
 import Release from './components/Release.vue'
 import Gallery from './components/Gallery.vue'
+import Shop from './components/Shop.vue'
 
 export default {
   name: 'App',
-  components: { Hero, Album, Release, Gallery },
+  components: { Hero, Album, Release, Gallery, Shop },
   methods: {
     setScroll() {
       new LocomotiveScroll({

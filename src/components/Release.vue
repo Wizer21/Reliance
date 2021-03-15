@@ -32,14 +32,13 @@ export default {
         }
     },
     mounted(){
-        document.getElementById("storm_container").play()
-
         let cover = document.getElementById('cover_release')
         let storm = document.getElementById('storm_container')
         let filter = document.getElementById('filter')
         let sub = document.getElementById('visible_sub').children[0]
         let title_release = document.getElementById('title_release')
         let image_container = document.getElementById('image_container')
+        let release_text = document.getElementById('release_text')
 
         cover.addEventListener('mouseenter', () => {
             filter.style.opacity = 1
@@ -49,6 +48,7 @@ export default {
             storm.currentTime = 0
             storm.play()
 
+            release_text.style.transform = "translate(-20px)"
             cover.style.animation = `${this.$style["fluid"]} 1s infinite alternate ease-in-out`
             title_release.style.animation = `${this.$style["fluid"]} 1s infinite alternate ease-in-out`
 
@@ -59,6 +59,8 @@ export default {
             storm.style.opacity = 0
             sub.style.top = '-2em' 
             storm.style.transform = "translate(0px, 0px)"
+
+            release_text.style.transform = "translate(0px)"
 
             cover.style.animation = ""
             title_release.style.animation = ""
@@ -140,6 +142,8 @@ export default {
     align-items: flex-end;
     justify-content: center;
     padding: 3em;
+
+    transition-duration: 400ms;
 }
 #release_text h1
 {
