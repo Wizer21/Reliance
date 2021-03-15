@@ -20,9 +20,7 @@
                         <img :src="pause_icon" alt="pause" @click="togglePause()" id="pause_button">
                         <div id="mute_button">
                             <img :src="mute_icon" alt="mute" @click="toggleMute()">
-                            <div id="volume_container">
-                                <input type="range" id="volume_slider" orient="vertical">
-                            </div>
+                            <input type="range" min="0" max="1" step="0.01" id="album_volume_slider" orient="vertical" @change="updateVolume()" @input="updateVolume()">
                         </div>
                     </div> 
                     <div id="player_body">
@@ -81,26 +79,38 @@ export default {
             playerPaused: false,    
             mute_icon: require('../assets/icon/volume_up-24px.svg'),
             playerMuted: false,
-            track_duration: 0
+            track_duration: 0,
+            volume: 0.1
         }
     },
     methods: {
         newTrack (track) {
-            document.getElementById('content').style.top = "-100px"
-            document.getElementById('content').style.opacity = "0"
+            let content = document.getElementById('content')
+            content.style.top = "-100px"
+            content.style.opacity = "0"
+
+            let audio_player = document.getElementById('audio_player')
+            audio_player.style.overflow = "hidden"
+
+
             setTimeout(() => {   
                 this.audio_player_data.track = track.name
 
                 this.player.src = require(`../assets/audio/${track.url}`)
-                this.player.play()
 
+                this.playerMuted = false
+                this.playerPaused = false
                 this.pause_icon = require('../assets/icon/pause-24px.svg')
-                this.player.play()
                 this.mute_icon = require('../assets/icon/volume_up-24px.svg')
+                this.player.play()
                 this.player.muted = false
                 
-                document.getElementById('content').style.top = "0px"
-                document.getElementById('content').style.opacity = "1"
+                content.style.top = "0px"
+                content.style.opacity = "1"
+
+                setTimeout(() => {
+                    audio_player.style.overflow = "visible"
+                }, 400)
             }, 400)            
         },
         togglePause() {
@@ -129,7 +139,11 @@ export default {
         },
         timeSliderUpdate() {
             this.player.currentTime = document.getElementById('track_slider').value
-        }
+        },
+        updateVolume() {      
+            console.log('album_volume_slider', document.getElementById('album_volume_slider').value)      
+            this.player.volume = document.getElementById('album_volume_slider').value
+        },
     },
     mounted() {
         // --- THREE JS 3D SCENE ---
@@ -215,8 +229,10 @@ export default {
         })
         this.player.addEventListener('loadedmetadata', () => {
             document.getElementById('track_slider').max = this.player.duration
-            console.log('max : ', this.player.duration)
         })
+
+        document.getElementById('album_volume_slider').value = this.volume
+        this.player.volume = this.volume
     }
 }
 </script>
@@ -263,7 +279,7 @@ export default {
 #track p:hover
 {
     transition-duration: 400ms;
-    transform: translate(40px, 0px);
+    transform: translate(20px, 0px);
 }
 #audio_player
 {
@@ -300,11 +316,16 @@ export default {
 {
     width: 100%;
 }
+#player_body p
+{
+    margin: 10px;
+}
 #mute_button
 {
     display: flex;
     align-items: center;
-    overflow: visible;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 #mute_button img
 {
@@ -315,44 +336,25 @@ export default {
     transform: scale(1.2);
     transition-duration: 300ms;
 }
-#volume_container
+#mute_button input
 {
     position: absolute;
-    height: 25px;
-    width: 25px;
-    transition-duration: 300ms;
-
-    overflow: visible;
-    z-index: 5;
-}
-#volume_container:hover
-{
-    transform: translate(0px, -110px);
-    height: 225px;
-    transition-duration: 300ms;
-}
-/* #volume_container input
-{
-    position: relative;
     height: 0px;
     opacity: 0;
     transition-duration: 300ms;
-    pointer-events: none;
-
-    margin: 0px;
-    padding: 4.5px;
-
+    padding: 10px;
 }
-#volume_container:hover input
+#mute_button:hover input
 {
-    height: 100px;
     opacity: 1;
+    height: 100px;
     transition-duration: 300ms;
-    pointer-events: all;
-} */
+    transform: translate(0px, -80px);
+}
 #pause_button
 {
-    margin-right: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
     transition-duration: 300ms;
 }
 #pause_button:hover
