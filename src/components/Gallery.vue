@@ -1,5 +1,5 @@
 <template>   
-    <div id="main_gallery">
+    <div>
         <div id="container_gallery">
         </div>   
     </div>  
@@ -11,7 +11,7 @@ export default {
     methods: {
         loadImages() {
             let file = require.context("../assets/image/gallery", true, /\.webp$/)
-            const position = [0, 50, 40, 20, 30, 10, 20, 40, 30, 50, 40, 20, 30, 500]
+            const position = [0, 50, 40, 0, 60, 10, 20, 40, 30, 50, 40, 20, 30, 500]
             const directions = [-1, 2, 1, -1, 2, 0, 1, 2, -1, 2, 1, -1, 2, 0, 1, 2]
             let elem 
             let container
@@ -20,7 +20,6 @@ export default {
             
             let gallery = document.getElementById('container_gallery')
             for (let i = 0; i < file.length; i++){
-                console.log(i)
 
                 elem = document.createElement("img")
                 elem.src = require(`../assets/image/gallery${file[i].substring(1, file[i].length)}`)
@@ -48,7 +47,7 @@ export default {
 </script>
 
 <style lang="scss">
-#main_gallery
+#gallery
 {
     position: relative;
     width: 100vw;
@@ -57,6 +56,9 @@ export default {
 {
     display: flex;
     flex-direction: column;
+
+    padding-top: 20vh;
+    padding-bottom: 50vh;
 }
 .image_container
 {

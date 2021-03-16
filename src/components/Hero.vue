@@ -1,5 +1,5 @@
 <template>
-    <div id="main_header">
+    <div>
         <span id="cursor_header">
             
         </span>
@@ -99,22 +99,24 @@ export default {
             glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
             glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
             
-            const main = document.getElementById('main_header')
-            main.addEventListener('mouseenter', () => {
+            const hero = document.getElementById('hero')
+            hero.addEventListener('mouseenter', () => {
                 this.mouse_in = true
+                cursor_header.style.opacity = 1
                 this.startAudio()
             })
-            main.addEventListener('mouseleave', () =>{
+            hero.addEventListener('mouseleave', () =>{
                 this.mouse_in = false
+                cursor_header.style.opacity = 0
                 this.cutAudio()
             })        
             
             let cursor_header = document.getElementById('cursor_header')
-            main.addEventListener('mousemove', event => {
+            hero.addEventListener('mousemove', event => {
                 cursor_header.style.top = `${event.offsetY - 10}px`
                 cursor_header.style.left = `${event.offsetX - 10}px`
             })    
-            main.addEventListener('wheel', event => {
+            hero.addEventListener('wheel', event => {
                 cursor_header.style.top = `${event.offsetY - 10}px`
                 cursor_header.style.left = `${event.offsetX - 10}px`
             })
@@ -135,7 +137,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#main_header
+#hero
 {
     height: 100vh;
     width: 100vw;    

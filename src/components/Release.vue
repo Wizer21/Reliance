@@ -1,5 +1,5 @@
 <template>   
-    <div id="main">
+    <div>
         <video id="storm_container">
             <source src="../assets/video/storm.webm" type="video/webm">        
         </video>    
@@ -88,11 +88,10 @@ export default {
 </script>
 
 <style scoped>
-#main
+#release
 {
     width: 100vw;
     height: 100vh;
-    background: #312b47;
 }
 #release_content
 {
@@ -106,13 +105,6 @@ export default {
 
     z-index: 3;
     transition-duration: 100ms;
-}
-#cover_release
-{
-    position: relative;
-
-    height: 35em;
-    width: 35em;
 }
 #storm_container
 {
@@ -132,8 +124,7 @@ export default {
     z-index: 2;
     
     opacity: 0;
-    transition-duration: 400ms;
-
+    transition-duration: 200ms;
 }
 #release_text
 {
@@ -141,6 +132,7 @@ export default {
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
+    flex-wrap: wrap;
     padding: 3em;
 
     transition-duration: 400ms;
@@ -148,7 +140,7 @@ export default {
 #release_text h1
 {
     color: white;
-    font-size: 4em;
+    font-size: 4vw;
     margin: 0px;
     text-align: right;
 }
@@ -166,6 +158,16 @@ export default {
     margin: 0px;
     top: -2em;
     transition-duration: 800ms;
+}
+#cover_release
+{
+    position: relative;
+
+    height: 35vw;
+    width: 35vw;
+
+    min-height: 300px;
+    min-width: 300px;
 }
 </style>
 

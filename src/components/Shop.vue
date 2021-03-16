@@ -1,10 +1,32 @@
 <template>   
-    <div id="main">
-        <div class="image_holder">
-            <img :src="urls.shirt" alt="shirt">
+    <div>
+        <div id="shop_header" data-scroll data-scroll-speed="5" data-scroll-direction="horizontal">
         </div>
-        <div class="image_holder">
-            <img :src="urls.sleeve" alt="shirt">
+        <div id="shirt_block" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
+            <div class="image_holder">
+                <img :src="urls.shirt" alt="shirt">
+            </div>
+            <div id="shirt_text">
+                <h2 class="shop_title">
+                    House Shirt
+                </h2>
+                <p class="shop_price">
+                    15$
+                </p>
+            </div>
+        </div>
+        <div id="sleeve_block" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
+            <div id="sleeve_text">
+                <h2 class="shop_title">
+                    House Long Sleeve
+                </h2>
+                <p class="shop_price">
+                    25$
+                </p>
+            </div>
+            <div class="image_holder">
+                <img :src="urls.sleeve" alt="shirt" >
+            </div>
         </div>
     </div>
 </template>
@@ -17,43 +39,82 @@ export default {
             urls: {
                 shirt : require("../assets/image/shop/t_shirt_house.png"),
                 sleeve: require("../assets/image/shop/sleeve_reliance.png")
+            },
+            transitionDone: false
+        }
+    },
+    methods: {
+        deploy() {
+            if (!this.transitionDone){
+                this.transitionDone = true
+                
+                let letters = document.getElementsByClassName('title_letter')
+                for ( let obj of letters){
+                    obj.style.transform = "translate(0px, -50px)"
+                }
             }
         }
     },
-    mounted(){
-        let objects = document.getElementsByClassName('image_holder')
+    mounted() {
+        let shop_header = document.getElementById('shop_header')
 
-        for (let obj of objects){
-            let rect = obj.getBoundingClientRect()
+        let elem
+        let delay = 0
+        for (let letter of "Reliance Merch"){
+            elem = document.createElement('p')
+            elem.className = "title_letter"
+            elem.textContent = letter
+            elem.style.transitionDelay = `${delay}ms`
 
-            obj.addEventListener('mousemove', event => {
-                let _mouseX = event.offsetX - rect.width/2;
-                let _mouseY = event.offsetY - rect.height/2;
+            delay += 150
 
-                if (_mouseX <= 0 && _mouseY >= 0){
-                    _mouseX = -_mouseX
-                }
-
-                console.log(`skew(${_mouseX / 10}deg, ${_mouseY / 10}deg`)
-
-                obj.style.transform = `skew(${_mouseX / 10}deg, ${_mouseY / 10}deg`
-            })
-
-              
-            obj.addEventListener('mouseleave', () => {
-                console.log("out")
-            })         
+            shop_header.appendChild(elem)            
         }
     }
 }
 </script>
 
 <style scoped>
-#main
+#shop
 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+
     width: 100vw;
-    height: 100vh;
-    background: #2e2e2e;
+}
+#shirt_block
+{
+    position: relative;
+    margin-left: 10vw;
+    margin-right: auto;
+
+    display: flex;
+    flex-direction: row;
+}
+#shirt_text
+{
+    display: flex;
+    flex-direction: column;    
+    color: white;
+}
+#sleeve_text
+{
+    display: flex;
+    flex-direction: column;    
+    color: white;
+
+    text-align: right;
+}
+#sleeve_block
+{    
+    position: relative;
+    margin-left: auto;
+    margin-right: 10vw;
+    
+    display: flex;
+    flex-direction: row;
 }
 .image_holder
 {
@@ -61,14 +122,54 @@ export default {
     height: 30vw;
     width: 30vw;
 
+    min-height: 300px;
+    min-width: 300px;
+
     transition-duration: 200ms;
 }
 .image_holder img
 {
-    position: relative;
     object-fit: cover;
     height: 100%;
     width: 100%;
-    background-color: red;
+
+    min-height: 300px;
+    min-width: 300px;
+}
+.shop_title
+{
+    font-size: 3em;
+    margin: 0px;
+}
+.shop_price
+{
+    font-size: 2em;
+    margin: 0px;
+}
+#shop_header
+{
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: top;
+    
+    margin: 0px;
+    margin-left: auto;
+    margin-right: 10vw;
+
+    overflow: hidden;
+}
+</style>
+
+<style>
+.title_letter
+{    
+    position: relative;
+    color: white;
+    font-size: 4em;
+    transition-duration: 1000ms;
+    transform: translate(0, -150px);
+    min-width: 20px;
 }
 </style>

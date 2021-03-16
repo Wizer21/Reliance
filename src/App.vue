@@ -1,10 +1,10 @@
 <template>
-  <div data-scroll-container class="container">
-    <Hero data-scroll-section/>
-    <Release data-scroll-section/>
-    <Album data-scroll-section/>
-    <Gallery data-scroll-section/>
-    <Shop data-scroll-section/>
+  <div data-scroll-container id="container">
+    <Hero data-scroll-section id="hero" />
+    <Release data-scroll-section id="release" />
+    <Album data-scroll-section id="album" />
+    <Gallery data-scroll-section id="gallery" />
+    <Shop data-scroll-section id="shop" ref="shopref"/>
     <div id="test" data-scroll-section>
     </div>
   </div>
@@ -22,9 +22,14 @@ import Shop from './components/Shop.vue'
 export default {
   name: 'App',
   components: { Hero, Album, Release, Gallery, Shop },
+  data() {
+    return {
+      scroll: null
+    }
+  },
   methods: {
     setScroll() {
-      new LocomotiveScroll({
+      this.scroll = new LocomotiveScroll({
         el: document.querySelector('[data-scroll-container]'),
         smooth: true,
       })
@@ -32,6 +37,38 @@ export default {
   },
   mounted() {
     this.setScroll();
+
+    let updating = false
+    this.scroll.on('scroll', () => {
+      let halh_win = window.innerHeight / 2
+      let new_color = ""
+
+      if (!updating){
+        if (halh_win > document.getElementById('shop').getBoundingClientRect().top){
+          new_color = "#262626"
+          this.$refs.shopref.deploy()
+        }
+        else if( halh_win > document.getElementById('gallery').getBoundingClientRect().top ){
+          new_color = "#000000"
+        }
+        else if( halh_win > document.getElementById('album').getBoundingClientRect().top ){
+          new_color = "#262626"
+        }
+        else if( halh_win > document.getElementById('release').getBoundingClientRect().top ){
+          new_color = "#312b47"
+        }
+        else if( halh_win > document.getElementById('hero').getBoundingClientRect().top ){
+          new_color = "#262626"
+        }
+
+        document.getElementById('app').style.backgroundColor = new_color
+
+        updating = true
+        setTimeout(() => {
+          updating = false
+        }, 200)
+      }    
+    })
   }
 }
 </script>
@@ -49,7 +86,9 @@ src: url(./assets/font/Roboto-Light.ttf) format('truetype');
 }
 body
 {
+  position: relative;
   margin: 0px;
+
 }
 #app
 {
@@ -60,6 +99,8 @@ body
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  transition: background-color 1000ms;
 }
 #test
 {

@@ -1,5 +1,5 @@
 <template>   
-    <div id="main">
+    <div>
         <div id="scene_3d">
         </div>
         <div id="player" data-scroll data-scroll-speed="1" data-scroll-direction="vertical">
@@ -240,13 +240,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#main
+#album
 {
     display: flex;
     align-items: center;
 
     width: 100vw;
-    background: #262626;
 }
 #scene_3d
 {
