@@ -2,11 +2,11 @@
     <div id="main">
         <div id="scene_3d">
         </div>
-        <div id="player">
+        <div id="player" data-scroll data-scroll-speed="1" data-scroll-direction="vertical">
             <h2>
                 Reliance
             </h2>
-            <div id="track">
+            <div id="track" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
                 <p v-for="obj of track" :key="obj.name" @click="newTrack(obj)">
                     {{ obj.name }}
                 </p>

@@ -1,5 +1,8 @@
 <template>
-    <div id="main">
+    <div id="main_header">
+        <span id="cursor_header">
+            
+        </span>
         <video id="video_container">
             <source src="../assets/video/lucid.webm" type="video/webm">
         </video>
@@ -14,7 +17,7 @@
             </div>            
             <input type="range" min="0" max="0.1" step="0.001" id="volume_slider" @change="sliderUpdate()" @input="sliderUpdate()"> 
         </div>  
-        <h1 class="glitch" data-text="Reliance">
+        <h1 id="glitch" data-text="Reliance">
                 Reliance
         </h1>
         <span class="sub">EFFECT</span>
@@ -91,12 +94,12 @@ export default {
             document.getElementById("video_container").volume = 0
 
             // Bind animaitions
-            let glitch = document.getElementsByClassName('glitch')[0]
+            let glitch = document.getElementById('glitch')
             glitch.style.setProperty('--glitch-skew', this.$style["glitch-skew"])
             glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
             glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
             
-            let main = document.getElementById('main')
+            const main = document.getElementById('main_header')
             main.addEventListener('mouseenter', () => {
                 this.mouse_in = true
                 this.startAudio()
@@ -104,8 +107,26 @@ export default {
             main.addEventListener('mouseleave', () =>{
                 this.mouse_in = false
                 this.cutAudio()
-            })            
+            })        
             
+            let cursor_header = document.getElementById('cursor_header')
+            main.addEventListener('mousemove', event => {
+                cursor_header.style.top = `${event.offsetY - 10}px`
+                cursor_header.style.left = `${event.offsetX - 10}px`
+            })    
+            main.addEventListener('wheel', event => {
+                cursor_header.style.top = `${event.offsetY - 10}px`
+                cursor_header.style.left = `${event.offsetX - 10}px`
+            })
+            
+            let controller = document.getElementById('controller')
+            controller.addEventListener('mouseenter', () => {
+                cursor_header.style.opacity = 0
+            })
+            controller.addEventListener('mouseleave', () =>{
+                cursor_header.style.opacity = 1
+            })        
+
             //document.getElementById("video_container").play()
             this.startAudio()
             document.getElementById('volume_slider').value = this.volume
@@ -114,13 +135,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#main
+#main_header
 {
     height: 100vh;
     width: 100vw;    
 
     display: flex;
     align-items: center;
+    cursor: none;
 }
 #video_container
 {
@@ -230,7 +252,7 @@ export default {
 	color: rgb(100,220,220);
 	letter-spacing: 1em;
 }
-.glitch {  
+#glitch {  
 	position: absolute;
 	color: white;
 	font-size: 8vw;
@@ -238,6 +260,7 @@ export default {
     text-align: center;
     width: 100%;
     z-index: 2;
+    pointer-events: none;
 
 	animation: var(--glitch-skew) 1s infinite linear alternate-reverse;
 
@@ -268,6 +291,19 @@ export default {
 
     object-fit: cover;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+    pointer-events: none;
+
+    
+}
+#cursor_header
+{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 5;
+    mix-blend-mode: difference;
     pointer-events: none;
 }
 </style>

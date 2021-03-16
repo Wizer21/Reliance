@@ -10,42 +10,39 @@ export default {
     name: 'Gallery',
     methods: {
         loadImages() {
-            const file = require.context("../assets/image/gallery", true, /\.webp$/)
+            let file = require.context("../assets/image/gallery", true, /\.webp$/)
+            const position = [0, 50, 40, 20, 30, 10, 20, 40, 30, 50, 40, 20, 30, 500]
+            const directions = [-1, 2, 1, -1, 2, 0, 1, 2, -1, 2, 1, -1, 2, 0, 1, 2]
             let elem 
+            let container
+
+            file = file.keys()
             
             let gallery = document.getElementById('container_gallery')
-            file.keys().forEach(function(key) {
-                elem = document.createElement("img")
-                elem.src = require(`../assets/image/gallery${key.substring(1, key.length)}`)
-                elem.classList.add("image_gallery")
+            for (let i = 0; i < file.length; i++){
+                console.log(i)
 
-                gallery.appendChild(elem)
-            })
+                elem = document.createElement("img")
+                elem.src = require(`../assets/image/gallery${file[i].substring(1, file[i].length)}`)
+                elem.classList.add("image_gallery")
+                elem.style.left = `${position[i]}vw`
+
+                container = document.createElement("div")
+                container.classList.add("image_container")
+
+                container.dataset.scroll = ""
+                container.dataset.scrollSpeed = directions[i]
+                container.dataset.scrollDirection = "horizontal"
+
+                container.appendChild(elem)
+
+
+                gallery.appendChild(container)
+            }
         }
     },
     mounted(){
         this.loadImages()
-
-        let gallery = document.getElementById('container_gallery')
-
-        let hold = false
-        let lastChord = 0
-        gallery.addEventListener('mousedown', event => {
-            hold = true
-            lastChord = event.offsetX
-            gallery.style.cursor = 'grabbing'
-        })
-        gallery.addEventListener('mouseup', () => {
-            hold = false
-            gallery.style.cursor = 'grab'
-        })
-
-        gallery.addEventListener('mousemove', event => {
-            if (hold){                
-                gallery.scrollLeft += -(event.offsetX - lastChord)*2
-                lastChord = event.offsetX
-            }
-        })
     }
 }
 </script>
@@ -55,30 +52,33 @@ export default {
 {
     position: relative;
     width: 100vw;
-    height: 100vh;
 }
 #container_gallery
 {
     display: flex;
-    flex-direction: row;
-    height: 100vh; 
-
-    overflow: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    cursor: grab;
-
-    &::-webkit-scrollbar {
-    display: none;
-    }
+    flex-direction: column;
+}
+.image_container
+{
+    width: 100vw;
+    height: 30vh;
 }
 .image_gallery
 {       
     position: relative; 
+    max-height: 60vh;
+    display: flex;
+    flex-wrap: wrap;
 
-    width:100%;
-    height:100%;
-    pointer-events: none;
+    transition-duration: 300ms;
+    z-index: 1;
+}
+.image_gallery:hover
+{
+    position: relative;
+    transition-duration: 300ms;
+    transform: scale(1.2);
+    z-index: 5;
 }
 </style>
 

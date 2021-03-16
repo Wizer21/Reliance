@@ -16,7 +16,7 @@
                     </p>
                 </div>
             </div>
-            <div id="image_container">
+            <div id="image_container" data-scroll data-scroll-speed="2" data-scroll-direction="horizontal">
                 <img src="../assets/image/disconnect.jpg" alt="image" id="cover_release">
             </div>
         </div>   
