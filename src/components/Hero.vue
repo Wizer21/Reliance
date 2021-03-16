@@ -1,7 +1,6 @@
 <template>
     <div>
-        <span id="cursor_header">
-            
+        <span id="cursor_header">            
         </span>
         <video id="video_container">
             <source src="../assets/video/lucid.webm" type="video/webm">
@@ -243,12 +242,12 @@ export default {
 }
 // Glitch Animation
 @mixin glitchCopy { 
-		content: attr(data-text);
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 } 
 .sub {
 	color: rgb(100,220,220);
@@ -270,7 +269,7 @@ export default {
 		@include glitchCopy;
 		left: 2px;
 		text-shadow: -2px 0 #ff00c1;
-		clip: rect(44px, 450px, 56px, 0);
+		clip: rect(440px, 45px, 560px, 500px);
 		animation: var(--glitch-anim) 5s infinite linear alternate-reverse;
 	}
 

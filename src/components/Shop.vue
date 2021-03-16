@@ -7,22 +7,22 @@
                 <img :src="urls.shirt" alt="shirt">
             </div>
             <div id="shirt_text">
-                <h2 class="shop_title">
-                    House Shirt
-                </h2>
                 <p class="shop_price">
                     15$
                 </p>
+                <h2 class="shop_title">
+                    House Shirt
+                </h2>
             </div>
         </div>
         <div id="sleeve_block" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
             <div id="sleeve_text">
-                <h2 class="shop_title">
-                    House Long Sleeve
-                </h2>
                 <p class="shop_price">
                     25$
                 </p>
+                <h2 class="shop_title">
+                    House Long Sleeve
+                </h2>
             </div>
             <div class="image_holder">
                 <img :src="urls.sleeve" alt="shirt" >
@@ -98,6 +98,8 @@ export default {
     display: flex;
     flex-direction: column;    
     color: white;
+
+    justify-content: flex-end;
 }
 #sleeve_text
 {
@@ -106,6 +108,7 @@ export default {
     color: white;
 
     text-align: right;
+    justify-content: flex-end;
 }
 #sleeve_block
 {    
