@@ -142,8 +142,7 @@ export default {
         timeSliderUpdate() {
             this.player.currentTime = document.getElementById('track_slider').value
         },
-        updateVolume() {      
-            console.log('album_volume_slider', document.getElementById('album_volume_slider').value)      
+        updateVolume() {          
             this.player.volume = document.getElementById('album_volume_slider').value
         },
     },

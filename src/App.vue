@@ -5,8 +5,7 @@
     <Album data-scroll-section id="album" />
     <Gallery data-scroll-section id="gallery" />
     <Shop data-scroll-section id="shop" ref="shopref"/>
-    <div id="test" data-scroll-section>
-    </div>
+    <Footer data-scroll-section id="footer" />
   </div>
 </template>
 
@@ -18,10 +17,11 @@ import Album from './components/Album.vue'
 import Release from './components/Release.vue'
 import Gallery from './components/Gallery.vue'
 import Shop from './components/Shop.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
-  components: { Hero, Album, Release, Gallery, Shop },
+  components: { Hero, Album, Release, Gallery, Shop, Footer },
   data() {
     return {
       scroll: null
@@ -59,6 +59,9 @@ export default {
         }
         else if( halh_win > document.getElementById('hero').getBoundingClientRect().top ){
           new_color = "#262626"
+        }
+        else if( halh_win > document.getElementById('footer').getBoundingClientRect().top ){
+          new_color = "#1f1f1f"
         }
 
         document.getElementById('app').style.backgroundColor = new_color
@@ -101,11 +104,5 @@ body
   align-items: flex-start;
 
   transition: background-color 1000ms;
-}
-#test
-{
-  height: 100vh;
-  width: 100vw;
-  background-color: black;
 }
 </style>
