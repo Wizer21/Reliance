@@ -45,7 +45,7 @@ export default {
 
       if (!updating){
         if (halh_win > document.getElementById('shop').getBoundingClientRect().top){
-          new_color = "#262626"
+          new_color = "#1b1b1b"
           this.$refs.shopref.deploy()
         }
         else if( halh_win > document.getElementById('gallery').getBoundingClientRect().top ){

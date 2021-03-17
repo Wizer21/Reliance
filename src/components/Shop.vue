@@ -6,23 +6,31 @@
             <div class="image_holder">
                 <img :src="urls.shirt" alt="shirt">
             </div>
-            <div id="shirt_text">
-                <p class="shop_price">
-                    15$
-                </p>
-                <h2 class="shop_title">
-                    House Shirt
-                </h2>
+            <div class="scaling_text" data-scroll data-scroll-speed="2" data-scroll-direction="vertical">
+                <a href="https://www.relianceband.com/product-page/house-logo-t-shirt">
+                    <div class="text-box">
+                        <p class="shop_price center" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
+                            15$
+                        </p>
+                        <h2 class="shop_title">
+                            House Shirt
+                        </h2>
+                    </div>
+                </a>
             </div>
         </div>
         <div id="sleeve_block" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
-            <div id="sleeve_text">
-                <p class="shop_price">
-                    25$
-                </p>
-                <h2 class="shop_title">
-                    House Long Sleeve
-                </h2>
+            <div class="scaling_text" data-scroll data-scroll-speed="2" data-scroll-direction="vertical">
+                <a href="https://www.relianceband.com/product-page/house-and-leaves-long-sleeve">
+                    <div class="text-box right">
+                        <p class="shop_price center" data-scroll data-scroll-speed="-1" data-scroll-direction="horizontal">
+                            25$
+                        </p>
+                        <h2 class="shop_title">
+                            House Long Sleeve
+                        </h2>
+                    </div>
+                </a>
             </div>
             <div class="image_holder">
                 <img :src="urls.sleeve" alt="shirt" >
@@ -84,40 +92,62 @@ export default {
 
     width: 100vw;
 }
-#shirt_block
-{
-    position: relative;
-    margin-left: 10vw;
-    margin-right: auto;
-
-    display: flex;
-    flex-direction: row;
-}
-#shirt_text
-{
-    display: flex;
-    flex-direction: column;    
-    color: white;
-
-    justify-content: flex-end;
-}
-#sleeve_text
-{
-    display: flex;
-    flex-direction: column;    
-    color: white;
-
-    text-align: right;
-    justify-content: flex-end;
-}
 #sleeve_block
 {    
     position: relative;
     margin-left: auto;
     margin-right: 10vw;
     
+    padding: 1em;
+
     display: flex;
     flex-direction: row;
+}
+#shirt_block
+{
+    position: relative;
+    margin-left: 10vw;
+    margin-right: auto;
+
+    padding: 1em;
+
+    display: flex;
+    flex-direction: row;
+
+}
+.text-box
+{
+    display: flex;
+    flex-direction: column;    
+    color: #e0e0e0;
+    cursor: pointer;
+
+    border-radius: 10px;
+    width: 15em;
+    height: 15em;
+    padding: 1em;
+    margin-top: auto;
+
+    background-color: #212121;
+
+    justify-content: flex-end;
+    transition-duration: 400ms;
+}
+.text-box:hover
+{
+    transform: scale(1.2);
+    transition-duration: 400ms;
+
+    background-color: #e0e0e0;
+    color: #212121;
+}
+.right
+{
+    text-align: right;
+}
+.center
+{    
+    text-align: center;
 }
 .image_holder
 {
@@ -163,13 +193,21 @@ export default {
 
     overflow: hidden;
 }
+.scaling_text
+{
+    margin-top: auto;
+}
+a
+{
+    text-decoration: none;
+}
 </style>
 
 <style>
 .title_letter
 {    
     position: relative;
-    color: white;
+    color: #e0e0e0;
     font-size: 4em;
     transition-duration: 1000ms;
     transform: translate(0, -150px);
