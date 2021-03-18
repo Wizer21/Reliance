@@ -58,7 +58,10 @@ export default {
                 
                 let letters = document.getElementsByClassName('title_letter')
                 for ( let obj of letters){
-                    obj.style.transform = "translate(0px, -50px)"
+                    obj.style.transform = "translate(0px, -6vw)"
+                    setTimeout(() => {
+                        obj.style.transitionDelay = "0ms"
+                    }, obj.dataset.transition_delay)
                 }
             }
         }
@@ -73,6 +76,7 @@ export default {
             elem.className = "title_letter"
             elem.textContent = letter
             elem.style.transitionDelay = `${delay}ms`
+            elem.dataset.transition_delay = delay
 
             delay += 150
 
@@ -181,7 +185,7 @@ export default {
 }
 #shop_header
 {
-    height: 100px;
+    height: 6vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -208,9 +212,15 @@ a
 {    
     position: relative;
     color: #e0e0e0;
-    font-size: 4em;
+    font-size: 6vw;
+    transform: translate(0, -12vw);
     transition-duration: 1000ms;
-    transform: translate(0, -150px);
-    min-width: 20px;
+    min-width: 1vw;
+}
+.title_letter:hover
+{
+    transition-duration: 500ms;
+    padding-left: 1vw;
+    padding-right: 1vw;
 }
 </style>
