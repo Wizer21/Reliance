@@ -29,10 +29,10 @@ export default {
         data() {
             return {
                 videoRunning: true,
-                videoMute: false,
+                videoMute: true,
                 volume: 0.02,
                 mouse_in: true,
-                mute_icon: require('../assets/icon/volume_up-24px.svg'),
+                mute_icon: require('../assets/icon/volume_off-24px.svg'),
                 pause_icon: require('../assets/icon/pause-24px.svg')
             }
         },
@@ -87,6 +87,10 @@ export default {
                         this.cutAudio()
                     }
                 }, 100) 
+            },
+            play(){
+                console.log('play')
+                document.getElementById("video_container").play()
             }
         },
         mounted() { 
@@ -128,9 +132,9 @@ export default {
                 cursor_header.style.opacity = 1
             })        
 
-            //document.getElementById("video_container").play()
             this.startAudio()
             document.getElementById('volume_slider').value = this.volume
+            document.getElementById("video_container").muted = this.videoMute
         }
     }
 </script>

@@ -5,7 +5,7 @@
                 <img :src="urls.shirt" alt="shirt">
             </div>
             <div class="scaling_text" data-scroll data-scroll-speed="2" data-scroll-direction="vertical">
-                <a href="https://www.relianceband.com/product-page/house-logo-t-shirt">
+                <a href="https://www.relianceband.com/product-page/house-logo-t-shirt" target = "_blank">
                     <div class="text-box">
                         <p class="shop_price center" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
                             15$
@@ -17,14 +17,11 @@
                 </a>
             </div>
         </div>        
-        <div data-scroll data-scroll-speed="10" data-scroll-direction="horizontal">
-            <div id="shop_header" data-scroll data-scroll-speed="-2" data-scroll-direction="vertical">
-                
-            </div>
+        <div id="shop_header" data-scroll data-scroll-speed="10" data-scroll-direction="horizontal">
         </div>
         <div id="sleeve_block" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
             <div class="scaling_text" data-scroll data-scroll-speed="2" data-scroll-direction="vertical">
-                <a href="https://www.relianceband.com/product-page/house-and-leaves-long-sleeve">
+                <a href="https://www.relianceband.com/product-page/house-and-leaves-long-sleeve" target = "_blank">
                     <div class="text-box right">
                         <p class="shop_price center" data-scroll data-scroll-speed="-1" data-scroll-direction="horizontal">
                             25$
@@ -61,7 +58,7 @@ export default {
                 
                 let letters = document.getElementsByClassName('title_letter')
                 for ( let obj of letters){
-                    obj.style.transform = "translate(0px, -6vw)"
+                    obj.style.transform = "translate(0px, -10vw)"
                     setTimeout(() => {
                         obj.style.transitionDelay = "0ms"
                     }, obj.dataset.transition_delay)
@@ -81,7 +78,7 @@ export default {
             elem.style.transitionDelay = `${delay}ms`
             elem.dataset.transition_delay = delay
 
-            delay += 100
+            delay += 50
 
             shop_header.appendChild(elem)            
         }
@@ -189,10 +186,9 @@ export default {
 }
 #shop_header
 {
-    height: 6vw;
+    height: 10vw;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
     
     margin: 0px;
     margin-left: auto;
@@ -215,8 +211,8 @@ a
 {    
     position: relative;
     color: #e0e0e0;
-    font-size: 6vw;
-    transform: translate(0, -12vw);
+    font-size: 10vw;
+    transform: translate(0, -20vw);
     transition-duration: 1000ms;
     min-width: 1vw;
 }

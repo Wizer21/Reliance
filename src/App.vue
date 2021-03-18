@@ -1,17 +1,21 @@
 <template>
   <div data-scroll-container id="container">
-    <Hero data-scroll-section id="hero" />
-    <Release data-scroll-section id="release" />
-    <Album data-scroll-section id="album" />
-    <Gallery data-scroll-section id="gallery" />
-    <Shop data-scroll-section id="shop" ref="shopref"/>
-    <Footer data-scroll-section id="footer" />
+    <Loader @update="updateMute" ref="loaderref"/>
+    <div id="body_container">
+      <Hero data-scroll-section id="hero" ref="heroref"/>
+      <Release data-scroll-section id="release" />
+      <Album data-scroll-section id="album" />
+      <Gallery data-scroll-section id="gallery" />
+      <Shop data-scroll-section id="shop" ref="shopref"/>
+      <Footer data-scroll-section id="footer" />
+    </div>
   </div>
 </template>
 
 <script>
 import LocomotiveScroll from "locomotive-scroll";
 
+import Loader from './components/Loader.vue'
 import Hero from './components/Hero.vue'
 import Album from './components/Album.vue'
 import Release from './components/Release.vue'
@@ -21,7 +25,7 @@ import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
-  components: { Hero, Album, Release, Gallery, Shop, Footer },
+  components: { Loader, Hero, Album, Release, Gallery, Shop, Footer },
   data() {
     return {
       scroll: null
@@ -32,8 +36,23 @@ export default {
       this.scroll = new LocomotiveScroll({
         el: document.querySelector('[data-scroll-container]'),
         smooth: true,
+        lerp: 0.06,
+        smartphone: {
+          smooth: true,
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+        },
+        tablet: {
+          smooth: true,
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+        },
       })
     },
+    updateMute() {
+      console.log('coucou')
+      this.$refs.heroref.toggleMute()
+    }
   },
   mounted() {
     this.setScroll();
@@ -70,8 +89,14 @@ export default {
         setTimeout(() => {
           updating = false
         }, 200)
-      }    
+      }   
     })
+    
+    setTimeout(() => {
+      this.$refs.loaderref.close_elem()
+      this.$refs.heroref.play()
+
+    }, 2000)
   }
 }
 </script>
