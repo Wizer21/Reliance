@@ -1,18 +1,21 @@
 <template>   
     <div>   
         <div id="footer_title">
-            <p class="footer_text size2" data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal">
+            <p class="footer_text left" data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal">
                 Thank to
             </p>
-            <p class="footer_text size3 center" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal">
+            <p class="footer_text" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal">
                 Reliance
             </p>
-            <p class="footer_text right" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
+            <p class="footer_text left smol" data-scroll data-scroll-speed="25" data-scroll-direction="horizontal">
                 for allowing me to realize this project
             </p>
         </div>  
-        <div id="icon_list_container">
-        </div>     
+        <div id="footer_body">
+            <div id="icon_list_container">
+            </div>     
+            <img :src="require('../assets/image/gallery/12.webp')" alt="group" data-scroll data-scroll-speed="-5" data-scroll-direction="vertical" data-scroll-call>
+        </div>
     </div>
 </template>
 
@@ -26,38 +29,32 @@ export default {
                     url: require("../assets/social_icon/web.svg"),
                     path: "https://www.relianceband.com/",
                     name: "relianceband.com"
-                },
-                
+                },                
                 {
                     url: require("../assets/social_icon/instagram.svg"),
                     path: "https://www.instagram.com/reliancebandoc/?hl=fr",
                     name: "instagram"
-                },
-                
+                },                
                 {
                     url: require("../assets/social_icon/twitter.svg"),
                     path: "https://twitter.com/relianceband",
                     name: "twitter"
-                },
-                
+                },                
                 {
                     url: require("../assets/social_icon/facebook.svg"),
                     path: "https://www.facebook.com/RelianceBandOC",
                     name: "facebook"
-                },
-                
+                },                
                 {
                     url: require("../assets/social_icon/spotify.svg"),
                     path: "https://open.spotify.com/artist/2rs68VOQjmZRDPXmw1mD6h",
                     name: "spotify"
-                },
-                
+                },                
                 {
                     url: require("../assets/social_icon/applemusic.svg"),
                     path: "https://music.apple.com/gb/artist/reliance/1453608052",
                     name: "apple music"
-                },
-                
+                },                
                 {
                     url: require("../assets/social_icon/youtube.svg"),
                     path: "https://www.youtube.com/channel/UCUS-DPIjwjIJ-udid7xFjxQ",
@@ -106,7 +103,6 @@ export default {
 
             icon_list_container.appendChild(container)
         }
-
     }
 }
 </script>
@@ -123,33 +119,42 @@ export default {
     display: flex;
     flex-direction: column;
     margin: 10vw;
+
+    white-space:nowrap;
 }
 .footer_text
 {
     color: #e0e0e0;
-    font-size: 2em;
+    font-size: 15vw;
     margin: 0px;
 }
-.size2
+.smol
 {
-    font-size: 4em;
-}
-.size3
-{
-    font-size: 5em;
+    font-size: 8vw;
 }
 .center
 {
     text-align: center;
 }
-.right
+.left
 {
-    text-align: right;
+    text-align: left;
 }
 #icon_list_container
 {
     display: flex;
     flex-direction: column;
+}
+#footer_body
+{
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-around;
+}
+#footer_body img
+{
+    height: 50vh;
+    z-index: -1;
 }
 </style>
 
@@ -177,15 +182,15 @@ export default {
 }
 .text_container
 {
-    width: 30vw;
+    width: 100%;
     overflow: hidden;
 }
 .icon_name
 {
     color: #e0e0e0;
-    font-size: 2em;
+    font-size: 4vw;
     text-align: right;
+    margin: 0px;
     
-    margin-top: 1em;
 }
 </style>

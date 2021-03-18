@@ -1,7 +1,5 @@
 <template>   
     <div>
-        <div id="shop_header" data-scroll data-scroll-speed="5" data-scroll-direction="horizontal">
-        </div>
         <div id="shirt_block" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
             <div class="image_holder">
                 <img :src="urls.shirt" alt="shirt">
@@ -17,6 +15,11 @@
                         </h2>
                     </div>
                 </a>
+            </div>
+        </div>        
+        <div data-scroll data-scroll-speed="10" data-scroll-direction="horizontal">
+            <div id="shop_header" data-scroll data-scroll-speed="-2" data-scroll-direction="vertical">
+                
             </div>
         </div>
         <div id="sleeve_block" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
@@ -78,7 +81,7 @@ export default {
             elem.style.transitionDelay = `${delay}ms`
             elem.dataset.transition_delay = delay
 
-            delay += 150
+            delay += 100
 
             shop_header.appendChild(elem)            
         }
@@ -136,6 +139,7 @@ export default {
 
     justify-content: flex-end;
     transition-duration: 400ms;
+    z-index: -1;
 }
 .text-box:hover
 {
@@ -188,8 +192,7 @@ export default {
     height: 6vw;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: top;
+    justify-content: flex-end;
     
     margin: 0px;
     margin-left: auto;
