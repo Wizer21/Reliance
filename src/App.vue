@@ -1,20 +1,24 @@
 <template>
-    <div>
-        <Loader @updateMute="setIsMuted"/>
-        <!-- <Main /> -->        
+    <div id="app">
+        <Loader @updateMute="updateMuted" />
+        <Main />        
     </div>
 </template>
 
 <script>
 import Loader from './pages/Loader.vue'
-// import Main from './pages/Main.vue'
+import Main from './pages/Main.vue'
+
 export default {
-  name: 'App',
-  components: { Loader },
-  method: {
-    setIsMuted(){
-        console.log("inapp")
+    name: 'App',
+    components: { Loader, Main },
+    methods: {
+        updateMuted(){
+            console.log("inapp")
+        }
+    },
+    mounted(){
+        this.updateMuted()
     }
-  }
 }
 </script>
