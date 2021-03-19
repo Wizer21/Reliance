@@ -1,13 +1,10 @@
 import {createApp, h} from 'vue'
 
-import Loader from './pages/Loader.vue'
-import Main from './pages/Main.vue'
-
+import App from './App.vue'
 
 // Create Routes
 const routes = {
-  '/': Loader,
-  '/main': Main,
+  '/': App,
 }
 
 // Create Router
@@ -20,10 +17,9 @@ const SimpleRouter = {
       return routes[this.currentRoute] || Error
     },
   },
-
   render() {
     return h(this.CurrentComponent)
-  }
+  },
 }
 
 // Create APP 

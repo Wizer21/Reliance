@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <Hero data-scroll-section id="hero" ref="heroref"/>
+    <div data-scroll-container>
+        <Hero data-scroll-section id="hero"/>
         <Release data-scroll-section id="release" />
         <Album data-scroll-section id="album" />
         <Gallery data-scroll-section id="gallery" />
@@ -44,10 +44,6 @@ export default {
           gestureDirection: 'vertical',
         },
       })
-    },
-    updateMute() {
-      console.log('coucou')
-      this.$refs.heroref.toggleMute()
     }
   },
   mounted() {
@@ -87,12 +83,6 @@ export default {
         }, 200)
       }   
     })
-    
-    setTimeout(() => {
-      this.$refs.loaderref.close_elem()
-      this.$refs.heroref.play()
-
-    }, 2000)
   }
 }
 </script>
@@ -101,8 +91,8 @@ export default {
 @import '../assets/css/locomotive-scroll.css';
 
 @font-face {
-font-family: Roboto light;
-src: url(../assets/font/Roboto-Light.ttf) format('truetype');
+    font-family: Roboto light;
+    src: url(../assets/font/Roboto-Light.ttf) format('truetype');
 }
 *{  
   box-sizing: border-box;

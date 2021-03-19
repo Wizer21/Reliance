@@ -19,29 +19,27 @@ export default {
         toggleMute() {
             if (this.videoMute){
                 this.videoMute = false
-                document.getElementById("video_container").muted = false
                 this.mute_icon = require('../assets/icon/volume_up-24px.svg')
             }
             else{
                 this.videoMute = true
-                document.getElementById("video_container").muted = true
                 this.mute_icon = require('../assets/icon/volume_off-24px.svg')
             }
-
-            this.$emit('update')
-        },
-        close_elem() {
-            const loader = document.getElementById('loader')
-            const control_image = document.getElementById('control_image')
-
-            loader.style.height = "0px"
-            control_image.style.opacity = "0"
             
-
-            setTimeout(() => {
-                loader.style.display = "none"
-            }, 1500)
+            console.log('in')
+            this.$emit('updateMute')
         }
+    },
+    mounted(){        
+        // const loader = document.getElementById('loader')
+        // const control_image = document.getElementById('control_image')
+
+        // loader.style.height = "0px"
+        // control_image.style.opacity = "0"  
+
+        // setTimeout(() => {
+        //     loader.style.display = "none"
+        // }, 1500)
     }
 }
 </script>
