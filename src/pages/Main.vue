@@ -32,7 +32,7 @@ export default {
             this.scroll = new LocomotiveScroll({
                 el: document.querySelector('[data-scroll-container]'),
                 smooth: true,
-                lerp: 0.06,
+                lerp: 0.07,
                 smartphone: {
                 smooth: true,
                 direction: 'vertical',
@@ -58,28 +58,28 @@ export default {
 
         let updating = false
         this.scroll.on('scroll', () => {
-            let halh_win = window.innerHeight / 2
+            let half_win = window.innerHeight / 2
             let new_color = ""
 
             if (!updating){
-                if (halh_win > document.getElementById('shop').getBoundingClientRect().top){
-                new_color = "#1b1b1b"
-                this.$refs.shopref.deploy()
+                if( half_win > document.getElementById('footer').getBoundingClientRect().top ){
+                    new_color = "#1b1b1b"
                 }
-                else if( halh_win > document.getElementById('gallery').getBoundingClientRect().top ){
-                new_color = "#000000"
+                else if (half_win > document.getElementById('shop').getBoundingClientRect().top){
+                    new_color = "#424242"
+                    this.$refs.shopref.deploy()
                 }
-                else if( halh_win > document.getElementById('album').getBoundingClientRect().top ){
-                new_color = "#262626"
+                else if( half_win > document.getElementById('gallery').getBoundingClientRect().top ){
+                    new_color = "#ba723a"
                 }
-                else if( halh_win > document.getElementById('release').getBoundingClientRect().top ){
-                new_color = "#312b47"
+                else if( half_win > document.getElementById('album').getBoundingClientRect().top ){
+                    new_color = "#262626"
                 }
-                else if( halh_win > document.getElementById('hero').getBoundingClientRect().top ){
-                new_color = "#262626"
+                else if( half_win > document.getElementById('release').getBoundingClientRect().top ){
+                    new_color = "#312b47"
                 }
-                else if( halh_win > document.getElementById('footer').getBoundingClientRect().top ){
-                new_color = "#1f1f1f"
+                else if( half_win > document.getElementById('hero').getBoundingClientRect().top ){
+                    new_color = "#262626"
                 }
 
                 document.getElementById('app').style.backgroundColor = new_color

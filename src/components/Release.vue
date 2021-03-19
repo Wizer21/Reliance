@@ -79,7 +79,6 @@ export default {
         })
 
         storm.addEventListener('ended', () => {
-            console.log('end')
             storm.currentTime = 0
             storm.play()
         })
@@ -97,8 +96,6 @@ export default {
 {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -137,12 +134,12 @@ export default {
 
     transition-duration: 400ms;
 }
-#release_text h1
+#title_release
 {
-    color: white;
-    font-size: 4vw;
+    font-size: 6vw;
     margin: 0px;
     text-align: right;
+    color: white;
 }
 #visible_sub
 {
@@ -154,7 +151,7 @@ export default {
 {
     position: relative;
     color: white;
-    font-size: 4em;
+    font-size: 5vw;
     margin: 0px;
     top: -2em;
     transition-duration: 800ms;
@@ -169,27 +166,43 @@ export default {
     min-height: 300px;
     min-width: 300px;
 }
+@media (min-width: 1001px) {
+    #release_content
+    {
+        flex-wrap: nowrap;
+    }
+}
+@media (max-width: 1000px) {
+    #release_content
+    {
+        flex-wrap: wrap;
+    }
+    #release_text
+    {
+        padding-left: 0px;
+    }
+}
 </style>
 
 <style lang="scss" module>
 @keyframes fluid {
-0%{
-    transform: skew(-(random(5)) + deg, 0deg)
-}
-20%{
-    transform: skew(-(random(5)) + deg, 0deg)
-}
-40%{
-    transform: skew(-(random(5)) + deg, 0deg)
-}
-60%{
-    transform: skew(-(random(5)) + deg, 0deg)
-}
-80%{
-    transform: skew(-(random(5)) + deg, 0deg)
-}
-100%{
-    transform: skew(-(random(5)) + deg, 0deg)
-}
+    0%{
+        transform: skew(-(random(5)) + deg, 0deg)
+    }
+    20%{
+        transform: skew(-(random(5)) + deg, 0deg)
+    }
+    40%{
+        transform: skew(-(random(5)) + deg, 0deg)
+    }
+    60%{
+        transform: skew(-(random(5)) + deg, 0deg)
+    }
+    80%{
+        transform: skew(-(random(5)) + deg, 0deg)
+    }
+    100%{
+        transform: skew(-(random(5)) + deg, 0deg)
+    }
 }
 </style>

@@ -117,7 +117,6 @@ export default {
 
     display: flex;
     flex-direction: row;
-
 }
 .text-box
 {
@@ -203,6 +202,16 @@ export default {
 a
 {
     text-decoration: none;
+}
+@media (max-width: 600px) {
+    #sleeve_block
+    {    
+        flex-direction: column;
+    }
+    #shirt_block
+    {
+        flex-direction: column;
+    }
 }
 </style>
 

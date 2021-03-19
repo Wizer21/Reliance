@@ -11,8 +11,8 @@ export default {
     methods: {
         loadImages() {
             let file = require.context("../assets/image/gallery", true, /\.webp$/)
-            const position = [0, 50, 40, 0, 60, 10, 20, 40, 30, 50, 40, 20, 30, 500]
-            const directions = [-1, 2, 1, -1, 2, 0, 1, 2, -1, 2, 1, -1, 2, 0, 1, 2]
+            const position = [0, 50, 30, 0, 60, 0, 30, 50, 10, 50, 40, 15, 50, 60, 10, 50, 20]
+            const directions = [-1, 2, 1, -1, 2, 0, 1, 2, -1, 2, 1, -1, 2, 0, 1, 2, 2]
             let elem 
             let container
 
@@ -69,8 +69,6 @@ export default {
 {       
     position: relative; 
     max-height: 60vh;
-    display: flex;
-    flex-wrap: wrap;
 
     transition-duration: 300ms;
     z-index: 1;
@@ -81,6 +79,12 @@ export default {
     transition-duration: 300ms;
     transform: scale(1.2);
     z-index: 5;
+}
+@media (max-width: 600px) {    
+    .image_container
+    {
+        height: 50vh;
+    }
 }
 </style>
 

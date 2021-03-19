@@ -228,23 +228,28 @@ a
     color: #4caf50;
     transition-duration: 500ms;
 }
+#portfolio
+{
+    color: #e0e0e0;
+    transition-duration: 500ms;
+}
 #portfolio:hover
 {    
-    color: #e0e0e0;
+    color: #4caf50;
 }
 #git
 {
-    color: #9c27b0;
+    color: #e0e0e0;
     transition-duration: 500ms;
 }
 #git:hover
 {    
-    color: #e0e0e0;
+    color: #9c27b0;
 }
 .simon_link
 {
     font-size: 15vw;
-    white-space:nowrap;
+    white-space: nowrap;
 
     height: min-content;
     text-align: center;
@@ -257,6 +262,12 @@ a
 {
     transition-duration: 200ms;    
     transform: translateX(1vw);
+}
+@media (max-width: 1000px) {   
+    #footer_body
+    {
+        flex-direction: column;
+    }
 }
 </style>
 
@@ -309,5 +320,16 @@ a
 
     margin: 0px;
     margin-left: 10vw;      
+}
+@media (max-width: 1000px) {   
+    .text_container
+    {        
+        width: 50%;
+    }
+    .social_icon
+    {
+        height: 10vw;
+        width: 10vw;
+    }
 }
 </style>
