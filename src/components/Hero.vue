@@ -89,13 +89,15 @@ export default {
             }, 100) 
         },
         start(isMuted){
-            console.log('Final start', isMuted)
             document.getElementById('volume_slider').value = this.volume
 
+            let video = document.getElementById("video_container")
+            video.volume = 0
+
             if (isMuted){
-                document.getElementById("video_container").muted = isMuted                
+                video.muted = isMuted                
             }
-            document.getElementById("video_container").play()
+            video.play()
             this.startAudio()
         }
     },
@@ -173,6 +175,7 @@ export default {
     z-index: 3;
     height: 40px;
     width: 44px;
+    cursor: pointer;
 
     overflow: hidden;
     transition-duration: 400ms;
@@ -188,7 +191,6 @@ export default {
     outline: none;
     text-align: center;
     transition-duration: 400ms;
-    cursor: pointer;
     
     margin: 10px;
 }

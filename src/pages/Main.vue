@@ -47,44 +47,52 @@ export default {
         },
         start(isMuted){
             this.$refs.heroref.start(isMuted)
+
+            setTimeout(() => {                
+                this.scroll.update()
+            }, 1500)
         }
     },
-    mounted() {
-        this.setScroll();
+    mounted() {      
+        this.setScroll()
 
         let updating = false
         this.scroll.on('scroll', () => {
-        let halh_win = window.innerHeight / 2
-        let new_color = ""
+            let halh_win = window.innerHeight / 2
+            let new_color = ""
 
-        if (!updating){
-            if (halh_win > document.getElementById('shop').getBoundingClientRect().top){
-            new_color = "#1b1b1b"
-            this.$refs.shopref.deploy()
-            }
-            else if( halh_win > document.getElementById('gallery').getBoundingClientRect().top ){
-            new_color = "#000000"
-            }
-            else if( halh_win > document.getElementById('album').getBoundingClientRect().top ){
-            new_color = "#262626"
-            }
-            else if( halh_win > document.getElementById('release').getBoundingClientRect().top ){
-            new_color = "#312b47"
-            }
-            else if( halh_win > document.getElementById('hero').getBoundingClientRect().top ){
-            new_color = "#262626"
-            }
-            else if( halh_win > document.getElementById('footer').getBoundingClientRect().top ){
-            new_color = "#1f1f1f"
-            }
+            if (!updating){
+                if (halh_win > document.getElementById('shop').getBoundingClientRect().top){
+                new_color = "#1b1b1b"
+                this.$refs.shopref.deploy()
+                }
+                else if( halh_win > document.getElementById('gallery').getBoundingClientRect().top ){
+                new_color = "#000000"
+                }
+                else if( halh_win > document.getElementById('album').getBoundingClientRect().top ){
+                new_color = "#262626"
+                }
+                else if( halh_win > document.getElementById('release').getBoundingClientRect().top ){
+                new_color = "#312b47"
+                }
+                else if( halh_win > document.getElementById('hero').getBoundingClientRect().top ){
+                new_color = "#262626"
+                }
+                else if( halh_win > document.getElementById('footer').getBoundingClientRect().top ){
+                new_color = "#1f1f1f"
+                }
 
-            document.getElementById('app').style.backgroundColor = new_color
+                document.getElementById('app').style.backgroundColor = new_color
 
-            updating = true
-            setTimeout(() => {
-            updating = false
-            }, 200)
-        }   
+                updating = true
+                setTimeout(() => {
+                updating = false
+                }, 200)
+            }   
+        })
+
+        window.addEventListener('resize', () => {
+            this.scroll.update()
         })
     }
 }
