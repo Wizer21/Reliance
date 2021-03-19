@@ -24,22 +24,20 @@ export default {
             else{
                 this.videoMute = true
                 this.mute_icon = require('../assets/icon/volume_off-24px.svg')
-            }
-            
-            console.log('in')
-            this.$emit('updateMute')
+            }            
+            this.$emit('updateMute', this.videoMute)
+        },
+        close(){             
+            const loader = document.getElementById('loader')
+            const control_image = document.getElementById('control_image')
+
+            loader.style.height = "0px"
+            control_image.style.opacity = "0"  
+
+            setTimeout(() => {
+                loader.style.display = "none"
+            }, 1500)
         }
-    },
-    mounted(){        
-        // const loader = document.getElementById('loader')
-        // const control_image = document.getElementById('control_image')
-
-        // loader.style.height = "0px"
-        // control_image.style.opacity = "0"  
-
-        // setTimeout(() => {
-        //     loader.style.display = "none"
-        // }, 1500)
     }
 }
 </script>

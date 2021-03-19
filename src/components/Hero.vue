@@ -25,117 +25,118 @@
 
 <script>
 export default {
-        name: 'Hero',
-        data() {
-            return {
-                videoRunning: true,
-                videoMute: true,
-                volume: 0.02,
-                mouse_in: true,
-                mute_icon: require('../assets/icon/volume_off-24px.svg'),
-                pause_icon: require('../assets/icon/pause-24px.svg')
-            }
-        },
-        methods: {
-            sliderUpdate() {
-                this.volume = document.getElementById('volume_slider').value
-                document.getElementById("video_container").volume = this.volume
-            },            
-            toggleMute() {
-                if (this.videoMute){
-                    this.videoMute = false
-                    document.getElementById("video_container").muted = false
-                    this.mute_icon = require('../assets/icon/volume_up-24px.svg')
-                }
-                else{
-                    this.videoMute = true
-                    document.getElementById("video_container").muted = true
-                    this.mute_icon = require('../assets/icon/volume_off-24px.svg')
-                }
-            },
-            togglePause() {
-                if (this.videoRunning){
-                    this.videoRunning = false
-                    document.getElementById("video_container").pause()
-                    this.pause_icon = require('../assets/icon/play_arrow-24px.svg')
-                }
-                else{
-                    this.videoRunning = true
-                    document.getElementById("video_container").play()
-                    this.pause_icon = require('../assets/icon/pause-24px.svg')
-                }
-            },
-            startAudio(){
-                setTimeout(() => {
-                    const video = document.getElementById("video_container")
-                    video.volume += 0.005
-                    
-                    if (this.volume > video.volume && this.mouse_in) {
-                        this.startAudio()
-                    }
-                }, 250)               
-            },
-            cutAudio(){
-               setTimeout(() => {
-                    const video = document.getElementById("video_container")
-                    video.volume -= 0.002
-
-                    if(video.volume < 0.002) {
-                        video.volume = parseInt(0)
-                    }
-                    else if (video.volume > 0 && !this.mouse_in) {
-                        this.cutAudio()
-                    }
-                }, 100) 
-            },
-            play(){
-                console.log('play')
-                document.getElementById("video_container").play()
-            }
-        },
-        mounted() { 
-            document.getElementById("video_container").volume = 0
-
-            // Bind animaitions
-            let glitch = document.getElementById('glitch')
-            glitch.style.setProperty('--glitch-skew', this.$style["glitch-skew"])
-            glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
-            glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
-            
-            const hero = document.getElementById('hero')
-            hero.addEventListener('mouseenter', () => {
-                this.mouse_in = true
-                cursor_header.style.opacity = 1
-                this.startAudio()
-            })
-            hero.addEventListener('mouseleave', () =>{
-                this.mouse_in = false
-                cursor_header.style.opacity = 0
-                this.cutAudio()
-            })        
-            
-            let cursor_header = document.getElementById('cursor_header')
-            hero.addEventListener('mousemove', event => {
-                cursor_header.style.top = `${event.offsetY - 10}px`
-                cursor_header.style.left = `${event.offsetX - 10}px`
-            })    
-            hero.addEventListener('wheel', event => {
-                cursor_header.style.top = `${event.offsetY - 10}px`
-                cursor_header.style.left = `${event.offsetX - 10}px`
-            })
-            
-            let controller = document.getElementById('controller')
-            controller.addEventListener('mouseenter', () => {
-                cursor_header.style.opacity = 0
-            })
-            controller.addEventListener('mouseleave', () =>{
-                cursor_header.style.opacity = 1
-            })        
-
-            document.getElementById('volume_slider').value = this.volume
-            document.getElementById("video_container").muted = this.videoMute
+    name: 'Hero',
+    data() {
+        return {
+            videoRunning: true,
+            videoMute: true,
+            volume: 0.02,
+            mouse_in: true,
+            mute_icon: require('../assets/icon/volume_off-24px.svg'),
+            pause_icon: require('../assets/icon/pause-24px.svg')
         }
+    },
+    methods: {
+        sliderUpdate() {
+            this.volume = document.getElementById('volume_slider').value
+            document.getElementById("video_container").volume = this.volume
+        },            
+        toggleMute() {
+            if (this.videoMute){
+                this.videoMute = false
+                document.getElementById("video_container").muted = false
+                this.mute_icon = require('../assets/icon/volume_up-24px.svg')
+            }
+            else{
+                this.videoMute = true
+                document.getElementById("video_container").muted = true
+                this.mute_icon = require('../assets/icon/volume_off-24px.svg')
+            }
+        },
+        togglePause() {
+            if (this.videoRunning){
+                this.videoRunning = false
+                document.getElementById("video_container").pause()
+                this.pause_icon = require('../assets/icon/play_arrow-24px.svg')
+            }
+            else{
+                this.videoRunning = true
+                document.getElementById("video_container").play()
+                this.pause_icon = require('../assets/icon/pause-24px.svg')
+            }
+        },
+        startAudio(){
+            setTimeout(() => {
+                const video = document.getElementById("video_container")
+                video.volume += 0.005
+                
+                if (this.volume > video.volume && this.mouse_in) {
+                    this.startAudio()
+                }
+            }, 250)               
+        },
+        cutAudio(){
+            setTimeout(() => {
+                const video = document.getElementById("video_container")
+                video.volume -= 0.002
+
+                if(video.volume < 0.002) {
+                    video.volume = parseInt(0)
+                }
+                else if (video.volume > 0 && !this.mouse_in) {
+                    this.cutAudio()
+                }
+            }, 100) 
+        },
+        start(isMuted){
+            console.log('Final start', isMuted)
+            document.getElementById('volume_slider').value = this.volume
+
+            if (isMuted){
+                document.getElementById("video_container").muted = isMuted                
+            }
+            document.getElementById("video_container").play()
+            this.startAudio()
+        }
+    },
+    mounted() { 
+        // Bind animaitions
+        let glitch = document.getElementById('glitch')
+        glitch.style.setProperty('--glitch-skew', this.$style["glitch-skew"])
+        glitch.style.setProperty('--glitch-anim', this.$style["glitch-anim"])
+        glitch.style.setProperty('--glitch-anim2', this.$style["glitch-anim2"])
+        
+        const hero = document.getElementById('hero')
+        hero.addEventListener('mouseenter', () => {
+            this.mouse_in = true
+            cursor_header.style.opacity = 1
+            this.startAudio()
+        })
+        hero.addEventListener('mouseleave', () =>{
+            this.mouse_in = false
+            cursor_header.style.opacity = 0
+            this.cutAudio()
+        })        
+        
+        let cursor_header = document.getElementById('cursor_header')
+        hero.addEventListener('mousemove', event => {
+            cursor_header.style.top = `${event.offsetY - 10}px`
+            cursor_header.style.left = `${event.offsetX - 10}px`
+        })    
+        hero.addEventListener('wheel', event => {
+            cursor_header.style.top = `${event.offsetY - 10}px`
+            cursor_header.style.left = `${event.offsetX - 10}px`
+        })
+        
+        let controller = document.getElementById('controller')
+        controller.addEventListener('mouseenter', () => {
+            cursor_header.style.opacity = 0
+        })
+        controller.addEventListener('mouseleave', () =>{
+            cursor_header.style.opacity = 1
+        })        
     }
+}
 </script>
 
 <style lang="scss" scoped>

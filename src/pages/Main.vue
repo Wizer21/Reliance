@@ -1,6 +1,6 @@
 <template>
     <div data-scroll-container>
-        <Hero data-scroll-section id="hero"/>
+        <Hero data-scroll-section id="hero" ref="heroref"/>
         <Release data-scroll-section id="release" />
         <Album data-scroll-section id="album" />
         <Gallery data-scroll-section id="gallery" />
@@ -20,70 +20,73 @@ import Shop from '../components/Shop.vue'
 import Footer from '../components/Footer.vue'
 
 export default {
-  name: 'Main',
-  components: { Hero, Album, Release, Gallery, Shop, Footer },
-  data() {
-    return {
-      scroll: null
-    }
-  },
-  methods: {
-    setScroll() {
-      this.scroll = new LocomotiveScroll({
-        el: document.querySelector('[data-scroll-container]'),
-        smooth: true,
-        lerp: 0.06,
-        smartphone: {
-          smooth: true,
-          direction: 'vertical',
-          gestureDirection: 'vertical',
+    name: 'Main',
+    components: { Hero, Album, Release, Gallery, Shop, Footer },  
+    data() {
+        return {
+        scroll: null
+        }
+    },
+    methods: {
+        setScroll() {
+            this.scroll = new LocomotiveScroll({
+                el: document.querySelector('[data-scroll-container]'),
+                smooth: true,
+                lerp: 0.06,
+                smartphone: {
+                smooth: true,
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                },
+                tablet: {
+                smooth: true,
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                },
+            })
         },
-        tablet: {
-          smooth: true,
-          direction: 'vertical',
-          gestureDirection: 'vertical',
-        },
-      })
+        start(isMuted){
+            this.$refs.heroref.start(isMuted)
+        }
+    },
+    mounted() {
+        this.setScroll();
+
+        let updating = false
+        this.scroll.on('scroll', () => {
+        let halh_win = window.innerHeight / 2
+        let new_color = ""
+
+        if (!updating){
+            if (halh_win > document.getElementById('shop').getBoundingClientRect().top){
+            new_color = "#1b1b1b"
+            this.$refs.shopref.deploy()
+            }
+            else if( halh_win > document.getElementById('gallery').getBoundingClientRect().top ){
+            new_color = "#000000"
+            }
+            else if( halh_win > document.getElementById('album').getBoundingClientRect().top ){
+            new_color = "#262626"
+            }
+            else if( halh_win > document.getElementById('release').getBoundingClientRect().top ){
+            new_color = "#312b47"
+            }
+            else if( halh_win > document.getElementById('hero').getBoundingClientRect().top ){
+            new_color = "#262626"
+            }
+            else if( halh_win > document.getElementById('footer').getBoundingClientRect().top ){
+            new_color = "#1f1f1f"
+            }
+
+            document.getElementById('app').style.backgroundColor = new_color
+
+            updating = true
+            setTimeout(() => {
+            updating = false
+            }, 200)
+        }   
+        })
     }
-  },
-  mounted() {
-    this.setScroll();
-
-    let updating = false
-    this.scroll.on('scroll', () => {
-      let halh_win = window.innerHeight / 2
-      let new_color = ""
-
-      if (!updating){
-        if (halh_win > document.getElementById('shop').getBoundingClientRect().top){
-          new_color = "#1b1b1b"
-          this.$refs.shopref.deploy()
-        }
-        else if( halh_win > document.getElementById('gallery').getBoundingClientRect().top ){
-          new_color = "#000000"
-        }
-        else if( halh_win > document.getElementById('album').getBoundingClientRect().top ){
-          new_color = "#262626"
-        }
-        else if( halh_win > document.getElementById('release').getBoundingClientRect().top ){
-          new_color = "#312b47"
-        }
-        else if( halh_win > document.getElementById('hero').getBoundingClientRect().top ){
-          new_color = "#262626"
-        }
-        else if( halh_win > document.getElementById('footer').getBoundingClientRect().top ){
-          new_color = "#1f1f1f"
-        }
-
-        document.getElementById('app').style.backgroundColor = new_color
-
-        updating = true
-        setTimeout(() => {
-          updating = false
-        }, 200)
-      }   
-    })
-  }
 }
 </script>
 

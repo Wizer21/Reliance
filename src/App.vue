@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-        <Loader @updateMute="updateMuted" />
-        <Main />        
+        <Loader @updateMute="updateMuted" ref="loader"/>
+        <Main ref="main" />        
     </div>
 </template>
 
@@ -12,13 +12,21 @@ import Main from './pages/Main.vue'
 export default {
     name: 'App',
     components: { Loader, Main },
+    data(){
+        return {
+            isMute: true
+        }
+    },
     methods: {
-        updateMuted(){
-            console.log("inapp")
+        updateMuted(mute){
+            this.isMute = mute
         }
     },
     mounted(){
-        this.updateMuted()
+        setTimeout(() => {
+            this.$refs.loader.close()
+            this.$refs.main.start(this.isMute)
+        }, 1500)
     }
 }
 </script>
