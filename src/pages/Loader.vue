@@ -1,7 +1,7 @@
 <template>   
     <div id="loader">        
         <div @click="toggleMute" id="control_button">
-            <img :src="mute_icon" alt="M">
+            <img :src="mute_icon" alt="M" id="control_image">
         </div>   
     </div>
 </template>
@@ -31,7 +31,16 @@ export default {
             this.$emit('update')
         },
         close_elem() {
-            document.getElementById('loader').style.height = "0px"
+            const loader = document.getElementById('loader')
+            const control_image = document.getElementById('control_image')
+
+            loader.style.height = "0px"
+            control_image.style.opacity = "0"
+            
+
+            setTimeout(() => {
+                loader.style.display = "none"
+            }, 1500)
         }
     }
 }
@@ -46,14 +55,15 @@ export default {
 
     height: 100vh;
     width: 100vw;
-    background-color: #262626;
+    background-color: #0c0c0c;
 
-    transition-duration: 2000ms;
+    transition-duration: 1500ms;
 }
-#control_button img
+#control_image
 {
     height: 10vw;
     width: 10vw;
     cursor: pointer;
+    transition-duration: 1000ms;
 }
 </style>

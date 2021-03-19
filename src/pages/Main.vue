@@ -1,31 +1,27 @@
 <template>
-  <div data-scroll-container id="container">
-    <Loader @update="updateMute" ref="loaderref"/>
-    <div id="body_container">
-      <Hero data-scroll-section id="hero" ref="heroref"/>
-      <Release data-scroll-section id="release" />
-      <Album data-scroll-section id="album" />
-      <Gallery data-scroll-section id="gallery" />
-      <Shop data-scroll-section id="shop" ref="shopref"/>
-      <Footer data-scroll-section id="footer" />
+    <div>
+        <Hero data-scroll-section id="hero" ref="heroref"/>
+        <Release data-scroll-section id="release" />
+        <Album data-scroll-section id="album" />
+        <Gallery data-scroll-section id="gallery" />
+        <Shop data-scroll-section id="shop" ref="shopref"/>
+        <Footer data-scroll-section id="footer" />
     </div>
-  </div>
 </template>
 
 <script>
 import LocomotiveScroll from "locomotive-scroll";
 
-import Loader from './components/Loader.vue'
-import Hero from './components/Hero.vue'
-import Album from './components/Album.vue'
-import Release from './components/Release.vue'
-import Gallery from './components/Gallery.vue'
-import Shop from './components/Shop.vue'
-import Footer from './components/Footer.vue'
+import Hero from '../components/Hero.vue'
+import Album from '../components/Album.vue'
+import Release from '../components/Release.vue'
+import Gallery from '../components/Gallery.vue'
+import Shop from '../components/Shop.vue'
+import Footer from '../components/Footer.vue'
 
 export default {
-  name: 'App',
-  components: { Loader, Hero, Album, Release, Gallery, Shop, Footer },
+  name: 'Main',
+  components: { Hero, Album, Release, Gallery, Shop, Footer },
   data() {
     return {
       scroll: null
@@ -102,11 +98,11 @@ export default {
 </script>
 
 <style>
-@import './assets/css/locomotive-scroll.css';
+@import '../assets/css/locomotive-scroll.css';
 
 @font-face {
 font-family: Roboto light;
-src: url(./assets/font/Roboto-Light.ttf) format('truetype');
+src: url(../assets/font/Roboto-Light.ttf) format('truetype');
 }
 *{  
   box-sizing: border-box;
