@@ -1,4 +1,10 @@
-# reliance
+# Reliance
+
+Showcase page of the music band Reliance
+
+[Discover the page](https://relianceband.herokuapp.com/)
+
+[Original Reliance website](https://www.relianceband.com/)
 
 ## Project setup
 ```
