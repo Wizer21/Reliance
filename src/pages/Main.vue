@@ -66,11 +66,11 @@ export default {
                     new_color = "#1b1b1b"
                 }
                 else if (half_win > document.getElementById('shop').getBoundingClientRect().top){
-                    new_color = "#424242"
+                    new_color = "#262626"
                     this.$refs.shopref.deploy()
                 }
                 else if( half_win > document.getElementById('gallery').getBoundingClientRect().top ){
-                    new_color = "#ba723a"
+                    new_color = "#212121"
                 }
                 else if( half_win > document.getElementById('album').getBoundingClientRect().top ){
                     new_color = "#262626"
@@ -79,7 +79,7 @@ export default {
                     new_color = "#312b47"
                 }
                 else if( half_win > document.getElementById('hero').getBoundingClientRect().top ){
-                    new_color = "#262626"
+                    new_color = "#312b47"
                 }
 
                 document.getElementById('app').style.backgroundColor = new_color

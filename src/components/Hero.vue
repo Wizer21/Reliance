@@ -32,7 +32,7 @@ export default {
             videoMute: true,
             volume: 0.02,
             mouse_in: true,
-            mute_icon: require('../assets/icon/volume_off-24px.svg'),
+            mute_icon: require('../assets/icon/volume_up-24px.svg'),
             pause_icon: require('../assets/icon/pause-24px.svg')
         }
     },
@@ -96,6 +96,7 @@ export default {
 
             if (isMuted){
                 video.muted = isMuted                
+                this.mute_icon = require('../assets/icon/volume_off-24px.svg')
             }
             video.play()
             this.startAudio()

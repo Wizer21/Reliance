@@ -12,7 +12,7 @@ export default {
         loadImages() {
             let file = require.context("../assets/image/gallery", true, /\.webp$/)
             const position = [0, 50, 30, 0, 60, 0, 30, 50, 10, 50, 40, 15, 50, 60, 10, 50, 20]
-            const directions = [-1, 2, 1, -1, 2, 0, 1, 2, -1, 2, 1, -1, 2, 0, 1, 2, 2]
+            const directions = [-2, 3, 2, -2, 3, 1, 2, 3, -2, 3, 2, -2, 2, -1, 2, 3, 3]
             let elem 
             let container
 

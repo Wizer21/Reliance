@@ -150,30 +150,34 @@ export default {
         // --- THREE JS 3D SCENE ---
         const OrbitControls = oc(THREE)
         const three_scene = document.getElementById('scene_3d')
-        let objects_list = []
 
         let scene = new THREE.Scene()
 
+        // Load 3D elements
+        const loader = new GLTFLoader() 
+        let cd
+        loader.load("models/reliance_cd4.glb", function ( gltf ) {
+            cd = scene.add( gltf.scene )    
+            cd = cd.children[cd.children.length - 1]
+            console.log(cd)
+            cd.rotation.y = 1
+        }) 
+        
         // Light
         let light = new THREE.HemisphereLight()
         light.intensity = 0.7
         scene.add(light)
 
-        let light2 = new THREE.PointLight()
-        light2.intensity = 2
-        light2.position.set(0, 1, 3)
+        let light2 = new THREE.PointLight
+        light2.intensity = 1
+        light2.position.set(-2, -1, -3)
         scene.add(light2)
 
-        // Load 3D elements
-        const loader = new GLTFLoader() 
-        let cd
-        loader.load("models/reliance_cd3.glb", function ( gltf ) {
-            cd = scene.add( gltf.scene )       
-            cd = cd.children[cd.children.length - 1]
+        let light3 = new THREE.PointLight
+        light3.intensity = 1
+        light3.position.set(2, 1, 3)
+        scene.add(light3)
 
-            objects_list.push(cd) 
-        }) 
-        
         // Camera
         const camera = new THREE.PerspectiveCamera(
             75,
@@ -200,12 +204,10 @@ export default {
         // Animate
         const animate = function () {
             requestAnimationFrame(animate)
-
-            if (objects_list){
-                for (let obj of objects_list){
-                    obj.rotation.y += 0.001
-                }
+            if (cd){
+                cd.rotation.y += 0.001
             }
+
             renderer.render(scene, camera)
         }
         animate()
