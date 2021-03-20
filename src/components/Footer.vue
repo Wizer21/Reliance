@@ -151,8 +151,7 @@ export default {
 #footer
 {
     width: 100vw;
-
-    margin-bottom: 100vh;
+    margin-bottom: 20vh;
 }
 #footer_title
 {

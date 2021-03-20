@@ -2,8 +2,8 @@
     <div>
         <div id="scene_3d">
         </div>
-        <div id="player" data-scroll data-scroll-speed="1" data-scroll-direction="vertical">
-            <h2>
+        <div id="player">
+            <h2 data-scroll data-scroll-speed="2" data-scroll-direction="horizontal">
                 Reliance
             </h2>
             <div id="track" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
@@ -159,7 +159,6 @@ export default {
         loader.load("models/reliance_cd4.glb", function ( gltf ) {
             cd = scene.add( gltf.scene )    
             cd = cd.children[cd.children.length - 1]
-            console.log(cd)
             cd.rotation.y = 1
         }) 
         
@@ -188,7 +187,7 @@ export default {
         camera.position.set(2, 1, 2)
 
         // Render
-        let renderer = new THREE.WebGLRenderer({ alpha: true })
+        let renderer = new THREE.WebGLRenderer({ alpha: true , antialias: true })
         renderer.setClearColor( 0x000000, 0 )
         three_scene.appendChild(renderer.domElement)
 

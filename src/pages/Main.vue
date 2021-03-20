@@ -50,7 +50,7 @@ export default {
 
             setTimeout(() => {                
                 this.scroll.update()
-            }, 1500)
+            }, 2000)
         }
     },
     mounted() {      
